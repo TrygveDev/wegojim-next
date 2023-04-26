@@ -1,0 +1,76 @@
+[debug] [2023-04-26T17:19:59.906Z] ----------------------------------------------------------------------
+[debug] [2023-04-26T17:19:59.907Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\trygv\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2023-04-26T17:19:59.908Z] CLI Version:   11.28.0
+[debug] [2023-04-26T17:19:59.908Z] Platform:      win32
+[debug] [2023-04-26T17:19:59.908Z] Node Version:  v18.16.0
+[debug] [2023-04-26T17:19:59.908Z] Time:          Wed Apr 26 2023 19:19:59 GMT+0200 (Central European Summer Time)
+[debug] [2023-04-26T17:19:59.909Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-04-26T17:19:59.960Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-04-26T17:19:59.960Z] > authorizing via signed-in user (trygvemf@gmail.com)
+[debug] [2023-04-26T17:19:59.960Z] [iam] checking project wegojim-next for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2023-04-26T17:19:59.962Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/wegojim-next:testIamPermissions [none]
+[debug] [2023-04-26T17:19:59.962Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/wegojim-next:testIamPermissions x-goog-quota-user=projects/wegojim-next
+[debug] [2023-04-26T17:19:59.962Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/wegojim-next:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2023-04-26T17:20:00.734Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/wegojim-next:testIamPermissions 200
+[debug] [2023-04-26T17:20:00.735Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/wegojim-next:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2023-04-26T17:20:00.735Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/wegojim-next [none]
+[debug] [2023-04-26T17:20:01.002Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/wegojim-next 200
+[debug] [2023-04-26T17:20:01.002Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/wegojim-next {"projectId":"wegojim-next","projectNumber":"855262152106","displayName":"wegojim-next","name":"projects/wegojim-next","resources":{"hostingSite":"wegojim-next"},"state":"ACTIVE","etag":"1_e2113508-f5ef-493e-9f57-6ed9f7d8af99"}
+[debug] [2023-04-26T17:20:04.780Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/wegojim-next/sites pageToken=&pageSize=10
+[debug] [2023-04-26T17:20:05.804Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/wegojim-next/sites 200
+[debug] [2023-04-26T17:20:05.804Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/wegojim-next/sites {"sites":[{"name":"projects/wegojim-next/sites/wegojim-next","defaultUrl":"https://wegojim-next.web.app","appId":"1:855262152106:web:cba42f1e9739a5ac4a17d3","type":"DEFAULT_SITE"}]}
+[debug] [2023-04-26T17:20:05.805Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:855262152106:web:cba42f1e9739a5ac4a17d3/config [none]
+[debug] [2023-04-26T17:20:06.802Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:855262152106:web:cba42f1e9739a5ac4a17d3/config 200
+[debug] [2023-04-26T17:20:06.803Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:855262152106:web:cba42f1e9739a5ac4a17d3/config {"projectId":"wegojim-next","appId":"1:855262152106:web:cba42f1e9739a5ac4a17d3","storageBucket":"wegojim-next.appspot.com","apiKey":"AIzaSyDVd69DKjf9XOo6-BAyFqy2nM3R4GXljes","authDomain":"wegojim-next.firebaseapp.com","messagingSenderId":"855262152106","measurementId":"G-GY38MH96D8"}
+[debug] [2023-04-26T17:20:28.863Z] Error: Export encountered errors on following paths:
+	/home/page: /home
+	/page: /
+	/signin/page: /signin
+	/signup/page: /signup
+    at E:\Documents\GitHub\wegojim-next\node_modules\next\dist\export\index.js:608:19
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Span.traceAsyncFn (E:\Documents\GitHub\wegojim-next\node_modules\next\dist\trace\trace.js:97:20)
+    at async E:\Documents\GitHub\wegojim-next\node_modules\next\dist\build\index.js:1440:21
+    at async Span.traceAsyncFn (E:\Documents\GitHub\wegojim-next\node_modules\next\dist\trace\trace.js:97:20)
+    at async E:\Documents\GitHub\wegojim-next\node_modules\next\dist\build\index.js:1298:17
+    at async Span.traceAsyncFn (E:\Documents\GitHub\wegojim-next\node_modules\next\dist\trace\trace.js:97:20)
+    at async build (E:\Documents\GitHub\wegojim-next\node_modules\next\dist\build\index.js:143:29)
+    at async build (C:\Users\trygv\AppData\Roaming\npm\node_modules\firebase-tools\lib\frameworks\next\index.js:55:5)
+    at async prepareFrameworks (C:\Users\trygv\AppData\Roaming\npm\node_modules\firebase-tools\lib\frameworks\index.js:279:108)
+    at async deploy (C:\Users\trygv\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\index.js:53:13)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2023-04-26T17:22:06.626Z] ----------------------------------------------------------------------
+[debug] [2023-04-26T17:22:06.628Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\trygv\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2023-04-26T17:22:06.628Z] CLI Version:   11.28.0
+[debug] [2023-04-26T17:22:06.629Z] Platform:      win32
+[debug] [2023-04-26T17:22:06.629Z] Node Version:  v18.16.0
+[debug] [2023-04-26T17:22:06.629Z] Time:          Wed Apr 26 2023 19:22:06 GMT+0200 (Central European Summer Time)
+[debug] [2023-04-26T17:22:06.629Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-04-26T17:22:06.679Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-04-26T17:22:06.679Z] > authorizing via signed-in user (trygvemf@gmail.com)
+[debug] [2023-04-26T17:22:06.679Z] [iam] checking project wegojim-next for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2023-04-26T17:22:06.681Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/wegojim-next:testIamPermissions [none]
+[debug] [2023-04-26T17:22:06.681Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/wegojim-next:testIamPermissions x-goog-quota-user=projects/wegojim-next
+[debug] [2023-04-26T17:22:06.681Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/wegojim-next:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2023-04-26T17:22:07.453Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/wegojim-next:testIamPermissions 200
+[debug] [2023-04-26T17:22:07.453Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/wegojim-next:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2023-04-26T17:22:07.454Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/wegojim-next [none]
+[debug] [2023-04-26T17:22:07.718Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/wegojim-next 200
+[debug] [2023-04-26T17:22:07.718Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/wegojim-next {"projectId":"wegojim-next","projectNumber":"855262152106","displayName":"wegojim-next","name":"projects/wegojim-next","resources":{"hostingSite":"wegojim-next"},"state":"ACTIVE","etag":"1_e2113508-f5ef-493e-9f57-6ed9f7d8af99"}
+[debug] [2023-04-26T17:22:11.512Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/wegojim-next/sites pageToken=&pageSize=10
+[debug] [2023-04-26T17:22:12.443Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/wegojim-next/sites 200
+[debug] [2023-04-26T17:22:12.444Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/wegojim-next/sites {"sites":[{"name":"projects/wegojim-next/sites/wegojim-next","defaultUrl":"https://wegojim-next.web.app","appId":"1:855262152106:web:cba42f1e9739a5ac4a17d3","type":"DEFAULT_SITE"}]}
+[debug] [2023-04-26T17:22:12.444Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:855262152106:web:cba42f1e9739a5ac4a17d3/config [none]
+[debug] [2023-04-26T17:22:13.339Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:855262152106:web:cba42f1e9739a5ac4a17d3/config 200
+[debug] [2023-04-26T17:22:13.339Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:855262152106:web:cba42f1e9739a5ac4a17d3/config {"projectId":"wegojim-next","appId":"1:855262152106:web:cba42f1e9739a5ac4a17d3","storageBucket":"wegojim-next.appspot.com","apiKey":"AIzaSyDVd69DKjf9XOo6-BAyFqy2nM3R4GXljes","authDomain":"wegojim-next.firebaseapp.com","messagingSenderId":"855262152106","measurementId":"G-GY38MH96D8"}
+[debug] [2023-04-26T17:22:33.187Z] Error: Call retries were exceeded
+    at ChildProcessWorker.initialize (E:\Documents\GitHub\wegojim-next\node_modules\next\dist\compiled\jest-worker\index.js:1:11661)
+    at ChildProcessWorker._onExit (E:\Documents\GitHub\wegojim-next\node_modules\next\dist\compiled\jest-worker\index.js:1:12599)
+    at ChildProcess.emit (node:events:513:28)
+    at ChildProcess.emit (node:domain:489:12)
+    at ChildProcess._handle.onexit (node:internal/child_process:291:12)
+[error] 
+[error] Error: An unexpected error has occurred.
