@@ -4,7 +4,7 @@ import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { faUser, faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "@mui/material";
-import wave from "@/public/images/wave.png";
+import wave from "@/public/images/wavedark.png";
 import Image from "next/image";
 import BackArrow from "../components/BackArrow";
 import {
@@ -15,7 +15,7 @@ import {
 	onAuthStateChanged,
 } from "firebase/auth";
 import { auth } from "../libs/firebase";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
@@ -26,16 +26,18 @@ export default function Home() {
 	const [username, setUsername] = useState("");
 	const [loading, setLoading] = useState(false);
 
-	onAuthStateChanged(auth, (user) => {
-		if (user) {
-			router.push("/home");
-		}
-	});
+	useEffect(() => {
+		onAuthStateChanged(auth, (user) => {
+			if (user) {
+				router.push("/home");
+			}
+		});
+	}, [router]);
 
 	return (
 		<main className="flex h-screen w-screen flex-col items-center justify-end bg-black bg-opacity-90 bg-[url('/images/singupbackground.jpg')] bg-cover bg-center bg-blend-multiply overflow-hidden">
 			<Image src={wave} alt="" className="w-100 absolute top-60" />
-			<BackArrow path="/" />
+			<BackArrow />
 			<div className="flex flex-col items-center justify-center h-56">
 				<h1 className="text-2xl font-semibold">Create an account</h1>
 				<p className="font-extralight">Ready to sweat? Sign up now</p>
@@ -92,6 +94,7 @@ export default function Home() {
 							username.length < 3 ||
 							username.match(format)
 						) {
+							setLoading(false);
 							return toast.error(
 								"Username must be between 3-16 non special characters!"
 							);

@@ -3,11 +3,9 @@ import React from "react";
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-type Props = {
-	path: string;
-};
+type Props = {};
 
-const BackArrow: React.FC<Props> = ({ path }) => {
+const BackArrow: React.FC<Props> = ({}) => {
 	const route = useRouter();
 
 	return (
@@ -16,7 +14,7 @@ const BackArrow: React.FC<Props> = ({ path }) => {
 				icon={faAngleLeft}
 				size="2xl"
 				className="pointer-events-auto"
-				onClick={() => route.push(path)}
+				onClick={() => route.back()}
 			/>
 		</div>
 	);
