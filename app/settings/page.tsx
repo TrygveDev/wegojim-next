@@ -11,7 +11,7 @@ import { auth } from "../libs/firebase";
 import BackArrow from "../components/BackArrow";
 import Image from "next/image";
 import wave from "@/public/images/wavelight.png";
-import { Avatar } from "@mui/material";
+import { Avatar, Button, CircularProgress, Modal } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
 	faAngleRight,
@@ -23,23 +23,53 @@ import {
 	faUserPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-hot-toast";
+import ConfirmModal from "../components/ConfirmModal";
 
 export default function Settings() {
 	const router = useRouter();
 	const [user, setUser] = useState<User>();
+	const [signOutModal, setSignOutModal] = useState(false);
+	const [resetPasswordModal, setResetPasswordModal] = useState(false);
+	const [initializing, setInitializing] = useState(true);
 
 	useEffect(() => {
-		onAuthStateChanged(auth, (user: User) => {
+		onAuthStateChanged(auth, (user) => {
 			if (user) {
 				setUser(user);
+				setInitializing(false);
 			} else {
 				router.push("/");
 			}
 		});
 	}, [router]);
 
-	return (
+	return initializing ? (
+		<div className="flex h-screen w-screen flex-col items-center justify-center bg-[#141414]">
+			<CircularProgress />
+		</div>
+	) : (
 		<main className="flex h-screen w-screen flex-col items-center bg-[#141414]">
+			<ConfirmModal
+				prompt="Sign out?"
+				open={signOutModal}
+				setOpen={setSignOutModal}
+				onConfirm={() => {
+					signOut(auth).then(() => {
+						toast.success("Signed out!");
+						router.push("/");
+					});
+				}}
+			/>
+			<ConfirmModal
+				prompt="Do you wannt to send a password reset mail?"
+				open={resetPasswordModal}
+				setOpen={setResetPasswordModal}
+				onConfirm={() => {
+					sendPasswordResetEmail(auth, user.email)
+						.then(() => toast.success("Password reset email sent!"))
+						.catch(() => toast.error("Something went wrong!"));
+				}}
+			/>
 			<BackArrow />
 			<Image src={wave} alt="" className="w-100 absolute top-80" />
 			<div className="pt-28 z-10 flex justify-end items-end">
@@ -100,13 +130,7 @@ export default function Settings() {
 
 				<div
 					className="flex flex-row justify-between w-5/6 h-16"
-					onClick={() =>
-						sendPasswordResetEmail(auth, user.email)
-							.then(() =>
-								toast.success("Password reset email sent!")
-							)
-							.catch(() => toast.error("Something went wrong!"))
-					}
+					onClick={() => setResetPasswordModal(true)}
 				>
 					<div className="h-full w-16 bg-[#141414] rounded-md flex items-center justify-center">
 						<FontAwesomeIcon
@@ -172,10 +196,7 @@ export default function Settings() {
 
 				<div
 					className="flex flex-row justify-between w-5/6 h-16"
-					onClick={() => {
-						signOut(auth);
-						toast.success("Signed out!");
-					}}
+					onClick={() => setSignOutModal(true)}
 				>
 					<div className="h-full w-16 bg-[#505050] rounded-md flex items-center justify-center">
 						<FontAwesomeIcon

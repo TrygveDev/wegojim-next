@@ -1,19 +1,30 @@
 "use client";
 
-import { Button } from "@mui/material";
+import { Button, CircularProgress } from "@mui/material";
 import { onAuthStateChanged } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { auth } from "./libs/firebase";
+import { useEffect, useState } from "react";
 
 export default function Home() {
 	const router = useRouter();
+	const [initializing, setInitializing] = useState(true);
 
-	onAuthStateChanged(auth, (user) => {
-		if (user) {
-			router.push("/home");
-		}
-	});
-	return (
+	useEffect(() => {
+		onAuthStateChanged(auth, (user) => {
+			if (user) {
+				router.push("/home");
+			} else {
+				setInitializing(false);
+			}
+		});
+	}, [router]);
+
+	return initializing ? (
+		<div className="flex h-screen w-screen flex-col items-center justify-center bg-black bg-opacity-95 bg-[url('/images/lockbackground.jpg')] bg-cover bg-center bg-blend-multiply">
+			<CircularProgress />
+		</div>
+	) : (
 		<main className="flex h-screen w-screen flex-col items-center justify-end bg-black bg-opacity-90 bg-[url('/images/lockbackground.jpg')] bg-cover bg-center bg-blend-multiply">
 			<div className="flex flex-col items-center h-24 pb-72">
 				<h1 className="text-6xl font-extrabold">wegojim</h1>

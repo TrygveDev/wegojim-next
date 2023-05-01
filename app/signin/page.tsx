@@ -3,7 +3,7 @@
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button } from "@mui/material";
+import { Button, CircularProgress } from "@mui/material";
 import { useRouter } from "next/navigation";
 import wave from "@/public/images/wavedark.png";
 import Image from "next/image";
@@ -24,16 +24,23 @@ export default function Home() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [loading, setLoading] = useState(false);
+	const [initializing, setInitializing] = useState(true);
 
 	useEffect(() => {
 		onAuthStateChanged(auth, (user) => {
 			if (user) {
 				router.push("/home");
+			} else {
+				setInitializing(false);
 			}
 		});
 	}, [router]);
 
-	return (
+	return initializing ? (
+		<div className="flex h-screen w-screen flex-col items-center justify-center bg-black bg-opacity-95 bg-[url('/images/lockbackground.jpg')] bg-cover bg-center bg-blend-multiply">
+			<CircularProgress />
+		</div>
+	) : (
 		<main className="flex h-screen w-screen flex-col items-center justify-end bg-black bg-opacity-90 bg-[url('/images/singinbackground.jpg')] bg-cover bg-center bg-blend-multiply">
 			<Image src={wave} alt="" className="w-100 absolute top-60" />
 			<BackArrow />
