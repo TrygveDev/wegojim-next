@@ -36,3 +36,4 @@ next-env.d.ts
 *.cache
 .firebase/
 .env
+app/libs/firebaseConfig.ts
