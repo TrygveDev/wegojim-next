@@ -73,7 +73,7 @@ export default function Home() {
 		</div>
 	) : (
 		<main className="flex h-screen w-screen flex-col items-center bg-[#141414]">
-			<div className="w-screen pl-7 pr-7 pt-28">
+			<div className="w-screen pl-7 pr-7 pt-24">
 				<h1 className="text-4xl text-white">Start a workout</h1>
 			</div>
 			<div className="w-screen pl-7 pr-7 pt-5 pb-3 flex gap-1">
@@ -97,7 +97,7 @@ export default function Home() {
 				</div>
 			</div>
 			<div className="w-screen pl-7 pr-7 flex flex-wrap gap-3 overflow-y-scroll">
-				{editMode && (
+				{(editMode || !workouts) && (
 					<div
 						className="w-40 h-40 rounded-lg bg-[#1E1E1E] flex flex-col items-center justify-center"
 						onClick={() => {
@@ -107,24 +107,25 @@ export default function Home() {
 						<FontAwesomeIcon icon={faPlus} size="2x" />
 					</div>
 				)}
-				{Object.entries(workouts).map((workout, i) => (
-					<div
-						className={`w-40 h-40 rounded-lg bg-[#1E1E1E] flex flex-col items-center justify-center ${
-							editMode && "wegojim-edit"
-						}`}
-						key={i}
-						onClick={() => {
-							editMode
-								? router.push(`/editworkout/${workout[0]}`)
-								: router.push(`/workout/${workout[0]}`);
-						}}
-					>
-						<p className="text-5xl pb-5">{workout[1].icon}</p>
-						<h1 className="text-lg text-center">
-							{workout[1].name}
-						</h1>
-					</div>
-				))}
+				{workouts &&
+					Object.entries(workouts).map((workout, i) => (
+						<div
+							className={`w-40 h-40 rounded-lg bg-[#1E1E1E] flex flex-col items-center justify-center ${
+								editMode && "wegojim-edit"
+							}`}
+							key={i}
+							onClick={() => {
+								editMode
+									? router.push(`/editworkout/${workout[0]}`)
+									: router.push(`/workout/${workout[0]}`);
+							}}
+						>
+							<p className="text-5xl pb-5">{workout[1].icon}</p>
+							<h1 className="text-lg text-center">
+								{workout[1].name}
+							</h1>
+						</div>
+					))}
 			</div>
 			<Navbar />
 		</main>

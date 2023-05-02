@@ -37,3 +37,5 @@ next-env.d.ts
 .firebase/
 .env
 app/libs/firebaseConfig.ts
+public/sw.js
+public/workbox-e13f827e.js

@@ -37,11 +37,11 @@ export default function Home() {
 	}, [router]);
 
 	return initializing ? (
-		<div className="flex h-screen w-screen flex-col items-center justify-center bg-black bg-opacity-95 bg-[url('/images/lockbackground.jpg')] bg-cover bg-center bg-blend-multiply">
+		<div className="flex h-screen w-screen flex-col items-center justify-center bg-black bg-opacity-75 bg-[url('/images/lockbackground.jpg')] bg-cover bg-center bg-blend-multiply">
 			<CircularProgress />
 		</div>
 	) : (
-		<main className="flex h-screen w-screen flex-col items-center justify-end bg-black bg-opacity-90 bg-[url('/images/singinbackground.jpg')] bg-cover bg-center bg-blend-multiply">
+		<main className="flex h-screen w-screen flex-col items-center justify-end bg-black bg-opacity-75 bg-[url('/images/singinbackground.jpg')] bg-cover bg-center bg-blend-multiply">
 			<Image src={wave} alt="" className="w-100 absolute top-60" />
 			<BackArrow />
 			<div className="flex flex-col items-center justify-center h-72">
