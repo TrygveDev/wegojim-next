@@ -20,13 +20,13 @@ body {
 		transform: rotate(0deg);
 	}
 	25% {
-		transform: rotate(2deg);
+		transform: rotate(1deg);
 	}
 	50% {
 		transform: rotate(0eg);
 	}
 	75% {
-		transform: rotate(-2deg);
+		transform: rotate(-1deg);
 	}
 	100% {
 		transform: rotate(0deg);
@@ -34,6 +34,6 @@ body {
 }
 
 .wegojim-edit {
-	animation: tilt-shaking 0.75s infinite ease-in-out !important;
+	animation: tilt-shaking 0.5s infinite ease-in-out !important;
 	background-color: #252525;
 }
