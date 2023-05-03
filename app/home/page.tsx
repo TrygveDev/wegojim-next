@@ -34,12 +34,12 @@ export default function Home() {
 
 	interface Workout {
 		name: string;
+		icon: string;
 		exercises: {
 			[key: string]: {
 				name: string;
-				sets: number;
-				reps: string;
-				weight?: number;
+				sets: string | number;
+				reps: string | number;
 			};
 		};
 	}
