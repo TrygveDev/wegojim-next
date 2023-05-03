@@ -1,15 +1,20 @@
 "use client";
 
-import { Button, CircularProgress } from "@mui/material";
-import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
-import { User, onAuthStateChanged } from "firebase/auth";
-import { auth, db } from "../libs/firebase";
+import BackArrow from "@/app/components/BackArrow";
+import ConfirmModal from "@/app/components/ConfirmModal";
+import { auth, db } from "@/app/libs/firebase";
+import {
+	faDeleteLeft,
+	faPlus,
+	faTrashAlt,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
-import BackArrow from "../components/BackArrow";
+import { Button, CircularProgress } from "@mui/material";
 import EmojiPicker from "emoji-picker-react";
-import { child, push, ref, set } from "firebase/database";
+import { User, onAuthStateChanged } from "firebase/auth";
+import { get, ref, set } from "firebase/database";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 
 type Exercise = {
@@ -18,31 +23,41 @@ type Exercise = {
 	reps: string | number;
 };
 
-export default function Home() {
+export default function Workout({ params }: any) {
 	const router = useRouter();
-	const [user, setUser] = useState<User>();
 	const [initializing, setInitializing] = useState(true);
-	const [showEmoijiPicker, setShowEmojiPicker] = useState(false);
+	const [exercises, setExercises] = useState<Exercise[]>();
+	const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 	const [emoji, setEmoji] = useState<any>("");
 	const [title, setTitle] = useState("");
-	const [exercises, setExercises] = useState<Exercise[]>([
-		{
-			name: "",
-			sets: "",
-			reps: "",
-		},
-	]);
+	const [user, setUser] = useState<User>();
+	const [openDelete, setOpenDelete] = useState(false);
 
 	useEffect(() => {
 		onAuthStateChanged(auth, (user) => {
 			if (user) {
 				setUser(user);
-				setInitializing(false);
+				get(ref(db, `${user.uid}/workouts/${params.workoutId}`))
+					.then((snapshot) => {
+						if (snapshot.exists()) {
+							setExercises(snapshot.val().exercises);
+							setTitle(snapshot.val().name);
+							setEmoji(snapshot.val().icon);
+							setInitializing(false);
+						} else {
+							toast.error("Whoops! Something went wrong.");
+							setInitializing(false);
+						}
+					})
+					.catch((error) => {
+						toast.error("Whoops! Something went wrong.");
+						console.error(error);
+					});
 			} else {
 				router.push("/");
 			}
 		});
-	}, [router]);
+	}, [params.workoutId, router]);
 
 	return initializing ? (
 		<div className="flex h-screen w-screen flex-col items-center justify-center bg-[#141414]">
@@ -55,7 +70,7 @@ export default function Home() {
 				confirmPrompt="Go back?"
 				confirmSubPropmt="Changes will not be saved!"
 			/>
-			{showEmoijiPicker && (
+			{showEmojiPicker && (
 				<div className="absolute w-screen h-screen flex justify-center items-center bg-black bg-opacity-75 z-40">
 					<EmojiPicker
 						onEmojiClick={(e) => {
@@ -65,6 +80,38 @@ export default function Home() {
 					/>
 				</div>
 			)}
+			<div className="absolute w-screen h-screen flex justify-end items-start pointer-events-none">
+				<div className="p-10 pointer-events-auto">
+					<FontAwesomeIcon
+						icon={faTrashAlt}
+						size="2xl"
+						color="#C73C3C"
+						onClick={() => {
+							setOpenDelete(true);
+						}}
+					/>
+				</div>
+			</div>
+			<ConfirmModal
+				open={openDelete}
+				setOpen={setOpenDelete}
+				prompt="Are you sure you want to delete this workout?"
+				subPrompt="This action cannot be undone!"
+				onConfirm={() => {
+					set(
+						ref(db, `${user.uid}/workouts/${params.workoutId}`),
+						null
+					)
+						.then(() => {
+							toast.success("Workout deleted!");
+							router.back();
+						})
+						.catch((error) => {
+							toast.error("Whoops! Something went wrong.");
+							console.error(error);
+						});
+				}}
+			/>
 			<div className="absolute w-screen h-screen flex items-end justify-center pointer-events-none">
 				<div className="mb-7 w-32 h-14">
 					<Button
@@ -87,14 +134,17 @@ export default function Home() {
 								);
 							}
 
-							const uidkey = push(
-								child(ref(db), `${user.uid}/workouts`)
-							).key;
-							set(ref(db, `${user.uid}/workouts/${uidkey}`), {
-								name: title,
-								icon: emoji,
-								exercises: exercises,
-							})
+							set(
+								ref(
+									db,
+									`${user.uid}/workouts/${params.workoutId}`
+								),
+								{
+									name: title,
+									icon: emoji,
+									exercises: exercises,
+								}
+							)
 								.then(() => {
 									toast.success("Workout saved!");
 									router.back();
@@ -117,6 +167,7 @@ export default function Home() {
 					className="h-12 text-4xl text-white bg-transparent min-w-28 focus:outline-none"
 					placeholder="Name"
 					maxLength={17}
+					defaultValue={title}
 					onChange={(e) => setTitle(e.target.value)}
 				></input>
 				<input
@@ -207,7 +258,7 @@ export default function Home() {
 										}}
 									>
 										<FontAwesomeIcon
-											icon={faTrashAlt}
+											icon={faDeleteLeft}
 											color="#C73C3C"
 											size="xl"
 										/>
@@ -217,7 +268,7 @@ export default function Home() {
 					  })
 					: null}
 				<div
-					className="flex gap-2 items-center mb-10 w-36"
+					className="flex gap-2 items-center mb-28 w-36"
 					onClick={() => {
 						setExercises((value) => [
 							...value,

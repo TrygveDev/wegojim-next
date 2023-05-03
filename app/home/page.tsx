@@ -93,7 +93,7 @@ export default function Home() {
 					<FontAwesomeIcon icon={faEdit} size="xl" />
 				</div>
 			</div>
-			<div className="w-screen pl-7 pr-7 flex flex-wrap gap-3 overflow-y-scroll">
+			<div className="w-screen pl-7 pr-7 flex flex-wrap gap-3 overflow-y-scroll pb-36">
 				{(editMode || !workouts) && (
 					<div
 						className="w-40 h-40 rounded-lg bg-[#1E1E1E] flex flex-col items-center justify-center"
