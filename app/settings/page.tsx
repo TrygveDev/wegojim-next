@@ -11,7 +11,7 @@ import { auth } from "../libs/firebase";
 import BackArrow from "../components/BackArrow";
 import Image from "next/image";
 import wave from "@/public/images/wavelight.png";
-import { Avatar, Button, CircularProgress, Modal } from "@mui/material";
+import { Avatar, CircularProgress } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
 	faAngleRight,
@@ -84,9 +84,18 @@ export default function Settings() {
 				<div className="bg-[#1E1E1E] w-7 h-7 rounded-full flex items-center justify-center absolute">
 					<FontAwesomeIcon
 						icon={faEdit}
-						onClick={() =>
-							toast.error("This feature is not available yet!")
-						}
+						onClick={() => {
+							const provider = user.providerData[0].providerId;
+							if (provider != "password") {
+								toast.error(
+									`Your profile picture is your ${provider} profile picture. You can change it there.`
+								);
+							} else {
+								toast.error(
+									"This feature is not available yet!"
+								);
+							}
+						}}
 					/>
 				</div>
 			</div>

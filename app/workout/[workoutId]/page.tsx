@@ -34,6 +34,7 @@ export default function Workout({ params }: any) {
 					.then((snapshot) => {
 						if (snapshot.exists()) {
 							setWorkout(snapshot.val());
+							setActive(Object.keys(snapshot.val().exercises)[0]);
 							setInitializing(false);
 						} else {
 							toast.error("Whoops! Something went wrong.");
@@ -51,8 +52,7 @@ export default function Workout({ params }: any) {
 	}, [params.workoutId, router]);
 
 	const handleExerciseClick = (exercise: any) => {
-		console.log(exercise);
-		toast.success("Exercise completed! " + exercise[1].name);
+		toast.error("This feature is not available yet!");
 	};
 
 	return initializing ? (
@@ -71,12 +71,12 @@ export default function Workout({ params }: any) {
 						active === exercise[0] ? (
 							<div
 								className={
-									"w-full h-32 rounded-lg bg-[#4CAF50] flex flex-col"
+									"w-full min-h-32 rounded-lg bg-[#4CAF50] flex flex-col"
 								}
 								key={i}
 								onClick={() => handleExerciseClick(exercise)}
 							>
-								<div className="w-full flex flex-row h-5 items-center mt-2 mb-1">
+								<div className="w-full flex flex-row items-center mt-1">
 									<div className="w-4/6">
 										<p className="pl-5 font-extralight">
 											Exercise
@@ -89,7 +89,7 @@ export default function Workout({ params }: any) {
 										<p>Reps</p>
 									</div>
 								</div>
-								<div className="w-full flex flex-row h-5 items-center">
+								<div className="w-full flex flex-row items-center mb-2">
 									<div className="w-4/6">
 										<h1 className="text-xl w-full pl-5">
 											{exercise[1].name}
@@ -102,7 +102,7 @@ export default function Workout({ params }: any) {
 										<p>{exercise[1].reps}</p>
 									</div>
 								</div>
-								<div className="w-full flex flex-row h-5 items-center justify-center mt-3">
+								<div className="w-full flex flex-row items-center justify-center mt-1">
 									<div className="w-3/12 font-extralight text-center">
 										<p>Set 1</p>
 									</div>
@@ -113,7 +113,7 @@ export default function Workout({ params }: any) {
 										<p>Set 3</p>
 									</div>
 								</div>
-								<div className="w-full flex flex-row h-5 items-center justify-center text-xl">
+								<div className="w-full flex flex-row items-center justify-center text-xl pb-2">
 									<div className="w-3/12 text-center">
 										<p>20kg</p>
 									</div>

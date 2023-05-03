@@ -52,7 +52,6 @@ export default function Home() {
 				get(ref(db, `${user.uid}/workouts`))
 					.then((snapshot) => {
 						if (snapshot.exists()) {
-							console.log(snapshot.val());
 							setWorkouts(snapshot.val());
 						}
 						setInitializing(false);
@@ -82,9 +81,7 @@ export default function Home() {
 					<input
 						className="bg-transparent w-full focus:outline-none"
 						placeholder="Search for your workouts"
-						onChange={(e) => {
-							console.log(e.target.value);
-						}}
+						onChange={(e) => {}}
 					></input>
 				</div>
 				<div
