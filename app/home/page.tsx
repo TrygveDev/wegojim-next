@@ -96,7 +96,7 @@ export default function Home() {
 			<div className="w-screen pl-7 pr-7 flex flex-wrap gap-3 overflow-y-scroll pb-36">
 				{(editMode || !workouts) && (
 					<div
-						className="w-40 h-40 rounded-lg bg-[#1E1E1E] flex flex-col items-center justify-center"
+						className="w-[calc(50%-0.375rem)] h-40 rounded-lg bg-[#1E1E1E] flex flex-col items-center justify-center"
 						onClick={() => {
 							router.push(`/addworkout`);
 						}}
@@ -109,7 +109,8 @@ export default function Home() {
 						<div
 							className={`w-[calc(50%-0.375rem)] h-40 rounded-lg bg-[#1E1E1E] flex flex-col items-center justify-center ${
 								editMode && "wegojim-edit"
-							}`}
+							}
+							`}
 							key={i}
 							onClick={() => {
 								editMode

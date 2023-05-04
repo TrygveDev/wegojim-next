@@ -5,6 +5,8 @@ import { onAuthStateChanged } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { auth } from "./libs/firebase";
 import { useEffect, useState } from "react";
+import { isDesktop, isMobile } from "react-device-detect";
+import Desktop from "./components/Desktop";
 
 export default function Home() {
 	const router = useRouter();
@@ -13,14 +15,16 @@ export default function Home() {
 	useEffect(() => {
 		onAuthStateChanged(auth, (user) => {
 			if (user) {
-				router.push("/home");
+				isMobile && router.push("/home");
 			} else {
 				setInitializing(false);
 			}
 		});
 	}, [router]);
 
-	return initializing ? (
+	return isDesktop ? (
+		<Desktop />
+	) : initializing ? (
 		<div className="flex h-screen w-screen flex-col items-center justify-center bg-black bg-opacity-75 bg-[url('/images/lockbackground.jpg')] bg-cover bg-center bg-blend-multiply">
 			<CircularProgress />
 		</div>
@@ -37,6 +41,10 @@ export default function Home() {
 				<Button
 					variant="outlined"
 					className="text-white border-white h-16 text-lg"
+					sx={{
+						backgroundColor: "white",
+						":focus": { border: "1px solid white" },
+					}}
 					onClick={() => router.push("/signin")}
 				>
 					SIGN IN
@@ -44,6 +52,10 @@ export default function Home() {
 				<Button
 					variant="contained"
 					className="text-black bg-white h-16 text-lg"
+					sx={{
+						backgroundColor: "white",
+						":focus": { backgroundColor: "white" },
+					}}
 					onClick={() => router.push("/signup")}
 				>
 					SIGN UP

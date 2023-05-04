@@ -71,11 +71,7 @@ export default function Settings() {
 				}}
 			/>
 			<BackArrow />
-			<Image
-				src={wave}
-				alt=""
-				className="w-100 h-[500px] absolute top-80 overflow-hidden"
-			/>
+			<Image src={wave} alt="" className="w-100 absolute top-80" />
 			<div className="pt-28 z-10 flex justify-end items-end">
 				<Avatar
 					src={user ? (user.photoURL ? user.photoURL : "") : ""}

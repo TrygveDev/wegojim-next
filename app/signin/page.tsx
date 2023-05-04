@@ -42,7 +42,11 @@ export default function Home() {
 		</div>
 	) : (
 		<main className="flex h-screen w-screen flex-col items-center justify-end bg-black bg-opacity-75 bg-[url('/images/singinbackground.jpg')] bg-cover bg-center bg-blend-multiply">
-			<Image src={wave} alt="" className="w-100 absolute top-60" />
+			<Image
+				src={wave}
+				alt=""
+				className="w-100 h-[calc(100vh-15rem)] absolute top-60"
+			/>
 			<BackArrow />
 			<div className="flex flex-col items-center justify-center h-72">
 				<h1 className="text-2xl font-semibold">
@@ -104,6 +108,10 @@ export default function Home() {
 				<Button
 					variant="contained"
 					className="text-black bg-white h-16 text-lg"
+					sx={{
+						backgroundColor: "white",
+						":focus": { backgroundColor: "white" },
+					}}
 					onClick={() => {
 						setLoading(true);
 

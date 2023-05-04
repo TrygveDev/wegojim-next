@@ -127,14 +127,17 @@ export default function Workout({ params }: any) {
 						}}
 						onClick={() => {
 							setLoading(true);
+							const filteredExercises = exercises.filter(
+								(e) => e.name.length > 0
+							);
 							if (
 								title.length == 0 ||
 								emoji.length == 0 ||
-								exercises.length == 0
+								filteredExercises.length == 0
 							) {
 								setLoading(false);
 								return toast.error(
-									"Please fill out all fields!"
+									"Please give the workout a title, emoji, and at least one exercise."
 								);
 							}
 
@@ -146,7 +149,7 @@ export default function Workout({ params }: any) {
 								{
 									name: title,
 									icon: emoji,
-									exercises: exercises,
+									exercises: filteredExercises,
 								}
 							)
 								.then(() => {
@@ -205,7 +208,7 @@ export default function Workout({ params }: any) {
 												className="text-lg w-full p-5 bg-transparent focus:outline-none"
 												maxLength={25}
 												value={workout.name}
-												placeholder="Exercise name"
+												placeholder="Exercise"
 												onChange={(e: any) => {
 													const newList = [
 														...exercises,
@@ -219,7 +222,7 @@ export default function Workout({ params }: any) {
 										<div className="w-2/12 text-center p-2">
 											<input
 												className="bg-transparent focus:outline-none w-full text-center"
-												placeholder="0"
+												placeholder="Sets"
 												value={workout.sets}
 												maxLength={2}
 												onChange={(e: any) => {
@@ -235,7 +238,7 @@ export default function Workout({ params }: any) {
 										<div className="w-3/12 text-center p-2">
 											<input
 												className="bg-transparent focus:outline-none w-full text-center"
-												placeholder="0"
+												placeholder="Reps"
 												// defaultChecked={workout.reps}
 												value={workout.reps}
 												maxLength={5}
@@ -254,10 +257,8 @@ export default function Workout({ params }: any) {
 									<div
 										className="pl-4"
 										onClick={() => {
-											console.log(i);
 											setExercises((value) =>
 												value.filter((_, index) => {
-													console.log(index, i);
 													return index !== i;
 												})
 											);
