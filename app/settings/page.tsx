@@ -71,7 +71,11 @@ export default function Settings() {
 				}}
 			/>
 			<BackArrow />
-			<Image src={wave} alt="" className="w-100 absolute top-80" />
+			<Image
+				src={wave}
+				alt=""
+				className="w-100 h-[500px] absolute top-80 overflow-hidden"
+			/>
 			<div className="pt-28 z-10 flex justify-end items-end">
 				<Avatar
 					src={user ? (user.photoURL ? user.photoURL : "") : ""}
@@ -114,7 +118,7 @@ export default function Settings() {
 					)}
 				</p>
 			</div>
-			<div className="z-10 w-screen flex flex-col items-center pt-24 gap-2">
+			<div className="z-10 w-screen flex flex-col items-center gap-2 pt-24">
 				<div
 					className="flex flex-row justify-between w-5/6 h-16"
 					onClick={() =>
@@ -128,7 +132,7 @@ export default function Settings() {
 							color="#505050"
 						/>
 					</div>
-					<div className="h-full w-52 flex items-center font-light">
+					<div className="h-full w-52 flex items-center font-light pl-3">
 						<p>Change Email</p>
 					</div>
 
@@ -148,7 +152,7 @@ export default function Settings() {
 							color="#505050"
 						/>
 					</div>
-					<div className="h-full w-52 flex items-center font-light">
+					<div className="h-full w-52 flex items-center font-light pl-3">
 						<p>Change Password</p>
 					</div>
 
@@ -172,7 +176,7 @@ export default function Settings() {
 							color="#141414"
 						/>
 					</div>
-					<div className="h-full w-52 flex items-center font-light">
+					<div className="h-full w-52 flex items-center font-light pl-3">
 						<p>Invite a friend</p>
 					</div>
 
@@ -194,7 +198,7 @@ export default function Settings() {
 							color="#141414"
 						/>
 					</div>
-					<div className="h-full w-52 flex items-center font-light">
+					<div className="h-full w-52 flex items-center font-light pl-3">
 						<p>Help</p>
 					</div>
 
@@ -214,7 +218,7 @@ export default function Settings() {
 							color="#141414"
 						/>
 					</div>
-					<div className="h-full w-52 flex items-center font-light">
+					<div className="h-full w-52 flex items-center font-light pl-3">
 						<p>Sign Out</p>
 					</div>
 

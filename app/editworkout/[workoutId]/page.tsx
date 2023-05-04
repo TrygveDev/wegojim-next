@@ -32,6 +32,7 @@ export default function Workout({ params }: any) {
 	const [title, setTitle] = useState("");
 	const [user, setUser] = useState<User>();
 	const [openDelete, setOpenDelete] = useState(false);
+	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
 		onAuthStateChanged(auth, (user) => {
@@ -115,6 +116,7 @@ export default function Workout({ params }: any) {
 			<div className="absolute w-screen h-screen flex items-end justify-center pointer-events-none">
 				<div className="mb-7 w-32 h-14">
 					<Button
+						disabled={loading}
 						variant="contained"
 						color="success"
 						sx={{
@@ -124,11 +126,13 @@ export default function Workout({ params }: any) {
 							pointerEvents: "auto",
 						}}
 						onClick={() => {
+							setLoading(true);
 							if (
 								title.length == 0 ||
 								emoji.length == 0 ||
 								exercises.length == 0
 							) {
+								setLoading(false);
 								return toast.error(
 									"Please fill out all fields!"
 								);
@@ -148,11 +152,13 @@ export default function Workout({ params }: any) {
 								.then(() => {
 									toast.success("Workout saved!");
 									router.back();
+									setLoading(false);
 								})
 								.catch((error) => {
 									toast.error(
 										"Whoops! Something went wrong."
 									);
+									setLoading(false);
 									console.error(error);
 								});
 						}}

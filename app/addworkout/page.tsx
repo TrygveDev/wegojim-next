@@ -32,6 +32,7 @@ export default function Home() {
 			reps: "",
 		},
 	]);
+	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
 		onAuthStateChanged(auth, (user) => {
@@ -58,6 +59,7 @@ export default function Home() {
 			{showEmoijiPicker && (
 				<div className="absolute w-screen h-screen flex justify-center items-center bg-black bg-opacity-75 z-40">
 					<EmojiPicker
+						searchDisabled={true}
 						onEmojiClick={(e) => {
 							setShowEmojiPicker(false);
 							setEmoji(e.emoji);
@@ -70,6 +72,7 @@ export default function Home() {
 					<Button
 						variant="contained"
 						color="success"
+						disabled={loading}
 						sx={{
 							width: "100%",
 							height: "100%",
@@ -77,11 +80,13 @@ export default function Home() {
 							pointerEvents: "auto",
 						}}
 						onClick={() => {
+							setLoading(true);
 							if (
 								title.length == 0 ||
 								emoji.length == 0 ||
 								exercises.length == 0
 							) {
+								setLoading(false);
 								return toast.error(
 									"Please fill out all fields!"
 								);
@@ -97,9 +102,11 @@ export default function Home() {
 							})
 								.then(() => {
 									toast.success("Workout saved!");
+									setLoading(false);
 									router.back();
 								})
 								.catch((error) => {
+									setLoading(false);
 									toast.error(
 										"Whoops! Something went wrong."
 									);

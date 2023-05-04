@@ -76,16 +76,16 @@ export default function Home() {
 				<h1 className="text-4xl text-white">Start a workout</h1>
 			</div>
 			<div className="w-screen pl-7 pr-7 pt-5 pb-3 flex gap-1">
-				<div className="flex items-center gap-2 bg-[#1E1E1E] p-3 rounded-2xl text-lg">
+				<div className="flex items-center gap-2 bg-[#1E1E1E] p-3 rounded-2xl text-lg w-full">
 					<FontAwesomeIcon icon={faMagnifyingGlass} size="lg" />
 					<input
 						className="bg-transparent w-full focus:outline-none"
-						placeholder="Search for your workouts"
+						placeholder="Search workouts"
 						onChange={(e) => {}}
 					></input>
 				</div>
 				<div
-					className={`w-14 h-14 flex items-center justify-center bg-[#1E1E1E] p-3 rounded-2xl text-lg ${
+					className={`w-1/6 h-14 flex items-center justify-center bg-[#1E1E1E] p-3 rounded-2xl text-lg ${
 						editMode && "bg-[#252525]"
 					}`}
 					onClick={() => setEditMode((value) => !value)}
@@ -107,7 +107,7 @@ export default function Home() {
 				{workouts &&
 					Object.entries(workouts).map((workout, i) => (
 						<div
-							className={`w-40 h-40 rounded-lg bg-[#1E1E1E] flex flex-col items-center justify-center ${
+							className={`w-[calc(50%-0.375rem)] h-40 rounded-lg bg-[#1E1E1E] flex flex-col items-center justify-center ${
 								editMode && "wegojim-edit"
 							}`}
 							key={i}
