@@ -9,10 +9,18 @@ import { getDatabase } from "firebase/database";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-import firebaseConfig from "./firebaseConfig";
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+const app = initializeApp({
+	apiKey: process.env.apiKey as string,
+	authDomain: process.env.authDomain as string,
+	databaseURL: process.env.databaseURL as string,
+	projectId: process.env.projectId as string,
+	storageBucket: process.env.storageBucket as string,
+	messagingSenderId: process.env.messagingSenderId as string,
+	appId: process.env.appId as string,
+	measurementId: process.env.measurementId as string,
+});
 const auth = getAuth(app);
 const db = getDatabase(app);
 
