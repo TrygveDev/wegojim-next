@@ -39,8 +39,9 @@ export default function Home() {
 					className="text-white border-white h-16 text-lg"
 					sx={{
 						backgroundColor: "transparent",
-						color: "black",
+						color: "white",
 						fontSize: "1.25rem",
+						border: "1px solid white",
 						":focus": { border: "1px solid white" },
 					}}
 					onClick={() => router.push("/signin")}
