@@ -38,8 +38,9 @@ export default function Home() {
 					variant="outlined"
 					className="text-white border-white h-16 text-lg"
 					sx={{
-						backgroundColor: "white",
+						backgroundColor: "transparent",
 						color: "black",
+						fontSize: "1.25rem",
 						":focus": { border: "1px solid white" },
 					}}
 					onClick={() => router.push("/signin")}
@@ -52,6 +53,7 @@ export default function Home() {
 					sx={{
 						backgroundColor: "white",
 						color: "black",
+						fontSize: "1.25rem",
 						":focus": { backgroundColor: "white" },
 					}}
 					onClick={() => router.push("/signup")}
