@@ -5,8 +5,6 @@ import { onAuthStateChanged } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { auth } from "./libs/firebase";
 import { useEffect, useState } from "react";
-import { isDesktop, isMobile } from "react-device-detect";
-import Desktop from "./components/Desktop";
 
 export default function Home() {
 	const router = useRouter();
@@ -15,16 +13,14 @@ export default function Home() {
 	useEffect(() => {
 		onAuthStateChanged(auth, (user) => {
 			if (user) {
-				isMobile && router.push("/home");
+				router.push("/home");
 			} else {
 				setInitializing(false);
 			}
 		});
 	}, [router]);
 
-	return isDesktop ? (
-		<Desktop />
-	) : initializing ? (
+	return initializing ? (
 		<div className="flex h-screen w-screen flex-col items-center justify-center bg-black bg-opacity-75 bg-[url('/images/lockbackground.jpg')] bg-cover bg-center bg-blend-multiply">
 			<CircularProgress />
 		</div>

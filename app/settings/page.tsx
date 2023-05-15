@@ -71,7 +71,9 @@ export default function Settings() {
 				}}
 			/>
 			<BackArrow />
-			<Image src={wave} alt="" className="w-100 absolute top-80" />
+			<Image src={wave} alt="" className="w-screen absolute top-80" />
+
+			{/* Avatar */}
 			<div className="pt-28 z-10 flex justify-end items-end">
 				<Avatar
 					src={user ? (user.photoURL ? user.photoURL : "") : ""}
@@ -99,6 +101,7 @@ export default function Settings() {
 					/>
 				</div>
 			</div>
+			{/* Userinfo */}
 			<div className="z-10">
 				<h1 className="text-center text-2xl pt-2 pb-1">
 					{user && user.displayName}
@@ -114,6 +117,7 @@ export default function Settings() {
 					)}
 				</p>
 			</div>
+
 			<div className="z-10 w-screen flex flex-col items-center gap-2 pt-24">
 				<div
 					className="flex flex-row justify-between w-5/6 h-16"

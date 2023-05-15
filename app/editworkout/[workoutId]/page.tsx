@@ -82,7 +82,7 @@ export default function Workout({ params }: any) {
 				</div>
 			)}
 			<div className="absolute w-screen h-screen flex justify-end items-start pointer-events-none">
-				<div className="p-10 pointer-events-auto">
+				<div className="p-7 pointer-events-auto">
 					<FontAwesomeIcon
 						icon={faTrashAlt}
 						size="2xl"
@@ -124,11 +124,12 @@ export default function Workout({ params }: any) {
 							height: "100%",
 							fontSize: "1.1rem",
 							pointerEvents: "auto",
+							zIndex: 50,
 						}}
 						onClick={() => {
 							setLoading(true);
 							const filteredExercises = exercises.filter(
-								(e) => e.name.length > 0
+								(e) => e?.name && e?.name.length > 0
 							);
 							if (
 								title.length == 0 ||
@@ -203,11 +204,11 @@ export default function Workout({ params }: any) {
 											"w-full h-20 rounded-lg bg-[#1E1E1E] flex flex-row items-center"
 										}
 									>
-										<div className="w-4/6">
+										<div className="w-7/12 pl-5">
 											<input
-												className="text-lg w-full p-5 bg-transparent focus:outline-none"
+												className="text-lg w-full bg-transparent focus:outline-none"
 												maxLength={25}
-												value={workout.name}
+												value={workout?.name}
 												placeholder="Exercise"
 												onChange={(e: any) => {
 													const newList = [
@@ -219,11 +220,11 @@ export default function Workout({ params }: any) {
 												}}
 											></input>
 										</div>
-										<div className="w-2/12 text-center p-2">
+										<div className="w-2/12 text-center">
 											<input
 												className="bg-transparent focus:outline-none w-full text-center"
 												placeholder="Sets"
-												value={workout.sets}
+												value={workout?.sets}
 												maxLength={2}
 												onChange={(e: any) => {
 													const newList = [
@@ -231,16 +232,16 @@ export default function Workout({ params }: any) {
 													];
 													newList[i].sets =
 														e.target.value;
+
 													setExercises(newList);
 												}}
 											></input>
 										</div>
-										<div className="w-3/12 text-center p-2">
+										<div className="w-2/6 text-center">
 											<input
 												className="bg-transparent focus:outline-none w-full text-center"
 												placeholder="Reps"
-												// defaultChecked={workout.reps}
-												value={workout.reps}
+												value={workout?.reps}
 												maxLength={5}
 												type="text"
 												onChange={(e: any) => {
@@ -255,7 +256,7 @@ export default function Workout({ params }: any) {
 										</div>
 									</div>
 									<div
-										className="pl-4"
+										className="pl-1"
 										onClick={() => {
 											setExercises((value) =>
 												value.filter((_, index) => {

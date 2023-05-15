@@ -6,7 +6,11 @@ import React, { useEffect, useState } from "react";
 import { User, onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "../libs/firebase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import {
+	faDeleteLeft,
+	faPlus,
+	faTrashAlt,
+} from "@fortawesome/free-solid-svg-icons";
 import BackArrow from "../components/BackArrow";
 import EmojiPicker from "emoji-picker-react";
 import { child, push, ref, set } from "firebase/database";
@@ -153,9 +157,9 @@ export default function Home() {
 											"w-full h-20 rounded-lg bg-[#1E1E1E] flex flex-row items-center"
 										}
 									>
-										<div className="w-4/6">
+										<div className="w-7/12 pl-5">
 											<input
-												className="text-lg w-full p-5 bg-transparent focus:outline-none"
+												className="text-lg w-full bg-transparent focus:outline-none"
 												maxLength={25}
 												value={workout.name}
 												placeholder="Exercise"
@@ -169,7 +173,7 @@ export default function Home() {
 												}}
 											></input>
 										</div>
-										<div className="w-2/12 text-center p-2">
+										<div className="w-2/12 text-center">
 											<input
 												className="bg-transparent focus:outline-none w-full text-center"
 												placeholder="Sets"
@@ -185,7 +189,7 @@ export default function Home() {
 												}}
 											></input>
 										</div>
-										<div className="w-3/12 text-center p-2">
+										<div className="w-2/6 text-center">
 											<input
 												className="bg-transparent focus:outline-none w-full text-center"
 												placeholder="Reps"
@@ -204,7 +208,7 @@ export default function Home() {
 										</div>
 									</div>
 									<div
-										className="pl-4"
+										className="pl-1"
 										onClick={() => {
 											setExercises((value) =>
 												value.filter((_, index) => {
@@ -214,7 +218,7 @@ export default function Home() {
 										}}
 									>
 										<FontAwesomeIcon
-											icon={faTrashAlt}
+											icon={faDeleteLeft}
 											color="#C73C3C"
 											size="xl"
 										/>

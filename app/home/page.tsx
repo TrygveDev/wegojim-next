@@ -19,8 +19,8 @@ import { get, ref } from "firebase/database";
 import { toast } from "react-hot-toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-	faEdit,
-	faFileEdit,
+	faEllipsisV,
+	faHandDots,
 	faMagnifyingGlass,
 	faPlus,
 } from "@fortawesome/free-solid-svg-icons";
@@ -72,12 +72,15 @@ export default function Home() {
 		</div>
 	) : (
 		<main className="flex h-screen w-screen flex-col items-center bg-[#141414]">
-			<div className="w-screen pl-7 pr-7 pt-24">
-				<h1 className="text-4xl text-white">Start a workout</h1>
+			{/* Header */}
+			<div className="w-screen pl-7 pr-7 pt-20">
+				<h1 className="text-3xl text-white">Start a workout</h1>
 			</div>
+
+			{/* Search */}
 			<div className="w-screen pl-7 pr-7 pt-5 pb-3 flex gap-1">
 				<div className="flex items-center gap-2 bg-[#1E1E1E] p-3 rounded-2xl text-lg w-full">
-					<FontAwesomeIcon icon={faMagnifyingGlass} size="lg" />
+					<FontAwesomeIcon icon={faMagnifyingGlass} size="1x" />
 					<input
 						className="bg-transparent w-full focus:outline-none"
 						placeholder="Search workouts"
@@ -85,18 +88,18 @@ export default function Home() {
 					></input>
 				</div>
 				<div
-					className={`w-1/6 h-14 flex items-center justify-center bg-[#1E1E1E] p-3 rounded-2xl text-lg ${
-						editMode && "bg-[#252525]"
-					}`}
+					className="flex items-center justify-center p-2"
 					onClick={() => setEditMode((value) => !value)}
 				>
-					<FontAwesomeIcon icon={faEdit} size="xl" />
+					<FontAwesomeIcon icon={faEllipsisV} size="xl" />
 				</div>
 			</div>
+
+			{/* Workouts */}
 			<div className="w-screen pl-7 pr-7 flex flex-wrap gap-3 overflow-y-scroll pb-36">
 				{(editMode || !workouts) && (
 					<div
-						className="w-[calc(50%-0.375rem)] h-40 rounded-lg bg-[#1E1E1E] flex flex-col items-center justify-center"
+						className="w-[calc(50%-0.375rem)] h-[calc(50vw-2.125rem)] rounded-lg bg-[#1E1E1E] flex flex-col items-center justify-center"
 						onClick={() => {
 							router.push(`/addworkout`);
 						}}
@@ -107,7 +110,7 @@ export default function Home() {
 				{workouts &&
 					Object.entries(workouts).map((workout, i) => (
 						<div
-							className={`w-[calc(50%-0.375rem)] h-40 rounded-lg bg-[#1E1E1E] flex flex-col items-center justify-center ${
+							className={`w-[calc(50%-0.375rem)] h-[calc(50vw-2.125rem)] rounded-lg bg-[#1E1E1E] flex flex-col items-center justify-evenly ${
 								editMode && "wegojim-edit"
 							}
 							`}
@@ -118,7 +121,7 @@ export default function Home() {
 									: router.push(`/workout/${workout[0]}`);
 							}}
 						>
-							<p className="text-5xl pb-5">{workout[1].icon}</p>
+							<p className="text-5xl">{workout[1].icon}</p>
 							<h1 className="text-lg text-center">
 								{workout[1].name}
 							</h1>

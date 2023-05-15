@@ -41,21 +41,24 @@ export default function Home() {
 			<CircularProgress />
 		</div>
 	) : (
-		<main className="flex h-screen w-screen flex-col items-center justify-end bg-black bg-opacity-75 bg-[url('/images/singinbackground.jpg')] bg-cover bg-center bg-blend-multiply">
+		<main className="flex h-screen w-screen flex-col items-center justify-evenly bg-black bg-opacity-75 bg-[url('/images/singinbackground.jpg')] bg-cover bg-center bg-blend-multiply">
 			<Image
 				src={wave}
 				alt=""
 				className="w-100 h-[calc(100vh-15rem)] absolute top-60"
 			/>
 			<BackArrow />
-			<div className="flex flex-col items-center justify-center h-72">
+
+			{/* Title */}
+			<div className="flex flex-col items-center justify-center z-10">
 				<h1 className="text-2xl font-semibold">
 					Sign in to your account
 				</h1>
 				<p className="font-extralight">Keep curshing those goals!</p>
 			</div>
 
-			<div className="w-2/3 flex flex-col gap-4 pt-5 pb-24 z-10">
+			{/* Input */}
+			<div className="w-2/3 flex flex-col gap-4 z-10">
 				<div className="w-full flex items-center gap-3 bg-[#1E1E1E] p-5 rounded text-lg">
 					<FontAwesomeIcon icon={faEnvelope} size="lg" />
 					<input
@@ -104,7 +107,8 @@ export default function Home() {
 				</p>
 			</div>
 
-			<div className="flex flex-col gap-3 w-2/3 pb-20">
+			{/* Buttons */}
+			<div className="flex flex-col gap-3 w-2/3">
 				<Button
 					variant="contained"
 					className="text-black bg-white h-16 text-lg"
@@ -132,14 +136,14 @@ export default function Home() {
 				</Button>
 				<Button
 					variant="outlined"
-					className="h-16 text-lg flex gap-2 capitalize"
+					className="h-16 text-lg flex justify-evenly capitalize"
 					disabled={loading}
 					onClick={() => {
 						signInWithRedirect(auth, new GoogleAuthProvider());
 					}}
 				>
 					<FontAwesomeIcon icon={faGoogle} />
-					Sign in with Google
+					Google Sign In
 				</Button>
 			</div>
 		</main>

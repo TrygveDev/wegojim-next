@@ -19,7 +19,7 @@ const BackArrow: React.FC<Props> = ({
 	const [open, setOpen] = useState(false);
 
 	return (
-		<div className="w-screen h-screen absolute p-10 pointer-events-none">
+		<div className="w-screen h-screen absolute p-7 pointer-events-none">
 			{confirm && (
 				<ConfirmModal
 					open={open}
@@ -32,7 +32,7 @@ const BackArrow: React.FC<Props> = ({
 
 			<FontAwesomeIcon
 				icon={faAngleLeft}
-				size="2xl"
+				size="xl"
 				className="pointer-events-auto"
 				onClick={() =>
 					confirm ? setOpen((value) => !value) : route.back()

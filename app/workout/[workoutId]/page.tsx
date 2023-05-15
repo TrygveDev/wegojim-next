@@ -62,8 +62,8 @@ export default function Workout({ params }: any) {
 	) : (
 		<main className="flex h-screen w-screen flex-col items-center bg-[#141414]">
 			<BackArrow />
-			<div className="w-screen pl-7 pr-7 pt-24 pb-5">
-				<h1 className="text-4xl text-white">{workout.name}</h1>
+			<div className="w-screen pl-7 pr-7 pt-20 pb-5">
+				<h1 className="text-3xl text-white">{workout.name}</h1>
 			</div>
 			<div className="w-screen pl-7 pr-7 flex flex-col gap-3 overflow-y-scroll">
 				{workout &&
@@ -77,7 +77,7 @@ export default function Workout({ params }: any) {
 								onClick={() => handleExerciseClick(exercise)}
 							>
 								<div className="w-full flex flex-row items-center mt-1">
-									<div className="w-4/6">
+									<div className="w-7/12">
 										<p className="pl-5 font-extralight">
 											Exercise
 										</p>
@@ -85,24 +85,24 @@ export default function Workout({ params }: any) {
 									<div className="w-2/12 font-extralight text-center">
 										<p>Sets</p>
 									</div>
-									<div className="w-3/12 font-extralight text-center">
+									<div className="pr-5 w-3/12 font-extralight text-center">
 										<p>Reps</p>
 									</div>
 								</div>
 								<div className="w-full flex flex-row items-center mb-2">
-									<div className="w-4/6">
-										<h1 className="text-xl w-full pl-5">
+									<div className="w-7/12">
+										<p className="w-full pl-5">
 											{exercise[1].name}
-										</h1>
+										</p>
 									</div>
-									<div className="w-2/12 text-xl text-center">
+									<div className="w-2/12 h- full text-center">
 										<p>{exercise[1].sets}</p>
 									</div>
-									<div className="w-3/12 text-xl text-center">
+									<div className="w-3/12 text-center pr-5">
 										<p>{exercise[1].reps}</p>
 									</div>
 								</div>
-								<div className="w-full flex flex-row items-center justify-center mt-1">
+								{/* <div className="w-full flex flex-row items-center justify-center mt-1">
 									<div className="w-3/12 font-extralight text-center">
 										<p>Set 1</p>
 									</div>
@@ -123,7 +123,7 @@ export default function Workout({ params }: any) {
 									<div className="w-3/12 text-center">
 										<p>25kg</p>
 									</div>
-								</div>
+								</div> */}
 							</div>
 						) : (
 							<div
@@ -134,14 +134,14 @@ export default function Workout({ params }: any) {
 								onClick={() => setActive(exercise[0])}
 							>
 								<div className="w-4/6">
-									<h1 className="text-lg w-full p-5">
+									<p className="w-full pl-5">
 										{exercise[1].name}
-									</h1>
+									</p>
 								</div>
-								<div className="w-2/12 text-center p-2">
+								<div className="w-2/12 text-center">
 									<p>{exercise[1].sets}</p>
 								</div>
-								<div className="w-3/12 text-center p-2">
+								<div className="w-3/12 text-center pr-5">
 									<p>{exercise[1].reps}</p>
 								</div>
 							</div>
