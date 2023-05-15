@@ -19,8 +19,6 @@ const app = initializeApp({
 	appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 	measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 });
-console.log(process.env);
 const auth = getAuth(app);
 const db = getDatabase(app);
-
 export { app, auth, db };

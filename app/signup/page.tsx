@@ -102,6 +102,7 @@ export default function Home() {
 					className="text-black bg-white h-16 text-lg"
 					sx={{
 						backgroundColor: "white",
+						textColor: "black",
 						":focus": { backgroundColor: "white" },
 					}}
 					onClick={() => {
