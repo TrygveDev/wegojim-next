@@ -79,7 +79,7 @@ export default function Home() {
 
 			{/* Search */}
 			<div className="w-screen pl-7 pr-7 pt-5 pb-3 flex gap-1">
-				<div className="flex items-center gap-2 bg-[#1E1E1E] p-3 rounded-2xl text-lg w-full">
+				<div className="flex items-center gap-2 bg-[#252525] p-3 rounded-2xl text-lg w-full">
 					<FontAwesomeIcon icon={faMagnifyingGlass} size="1x" />
 					<input
 						className="bg-transparent w-full focus:outline-none"
@@ -99,7 +99,7 @@ export default function Home() {
 			<div className="w-screen pl-7 pr-7 flex flex-wrap gap-3 overflow-y-scroll pb-36">
 				{(editMode || !workouts) && (
 					<div
-						className="w-[calc(50%-0.375rem)] h-[calc(50vw-2.125rem)] rounded-lg bg-[#1E1E1E] flex flex-col items-center justify-center"
+						className="w-[calc(50%-0.375rem)] h-[calc(50vw-2.125rem)] rounded-lg bg-[#252525] flex flex-col items-center justify-center"
 						onClick={() => {
 							router.push(`/addworkout`);
 						}}
@@ -110,7 +110,7 @@ export default function Home() {
 				{workouts &&
 					Object.entries(workouts).map((workout, i) => (
 						<div
-							className={`w-[calc(50%-0.375rem)] h-[calc(50vw-2.125rem)] rounded-lg bg-[#1E1E1E] flex flex-col items-center justify-evenly ${
+							className={`w-[calc(50%-0.375rem)] h-[calc(50vw-2.125rem)] rounded-lg bg-[#252525] flex flex-col items-center justify-evenly ${
 								editMode && "wegojim-edit"
 							}
 							`}
