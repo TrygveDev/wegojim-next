@@ -6,6 +6,7 @@ import { auth, db } from "@/app/libs/firebase";
 import {
 	faDeleteLeft,
 	faPlus,
+	faShare,
 	faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -32,6 +33,7 @@ export default function Workout({ params }: any) {
 	const [title, setTitle] = useState("");
 	const [user, setUser] = useState<User>();
 	const [openDelete, setOpenDelete] = useState(false);
+	const [openShare, setOpenShare] = useState(false);
 	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
@@ -53,7 +55,8 @@ export default function Workout({ params }: any) {
 					.catch((error) => {
 						toast.error("Whoops! Something went wrong.");
 						console.error(error);
-					});
+					})
+					.finally(() => setLoading(false));
 			} else {
 				router.push("/");
 			}
@@ -82,13 +85,21 @@ export default function Workout({ params }: any) {
 				</div>
 			)}
 			<div className="absolute w-screen h-screen flex justify-end items-start pointer-events-none">
-				<div className="p-7 pointer-events-auto">
+				<div className="p-7 pointer-events-auto flex gap-3">
 					<FontAwesomeIcon
 						icon={faTrashAlt}
 						size="2xl"
 						color="#C73C3C"
 						onClick={() => {
 							setOpenDelete(true);
+						}}
+					/>
+					<FontAwesomeIcon
+						icon={faShare}
+						size="2xl"
+						color="#FFFFFF"
+						onClick={() => {
+							setOpenShare(true);
 						}}
 					/>
 				</div>
@@ -110,7 +121,54 @@ export default function Workout({ params }: any) {
 						.catch((error) => {
 							toast.error("Whoops! Something went wrong.");
 							console.error(error);
-						});
+						})
+						.finally(() => setLoading(false));
+				}}
+			/>
+			<ConfirmModal
+				open={openShare}
+				setOpen={setOpenShare}
+				prompt="Share the workout?"
+				subPrompt="Everyone with the share id can copy the workout!"
+				onConfirm={() => {
+					setLoading(true);
+					const filteredExercises = exercises.filter(
+						(e) => e?.name && e?.name.length > 0
+					);
+					if (
+						title.length == 0 ||
+						emoji.length == 0 ||
+						filteredExercises.length == 0
+					) {
+						setLoading(false);
+						return toast.error(
+							"Please give the workout a title, emoji, and at least one exercise."
+						);
+					}
+					set(
+						ref(
+							db,
+							`sharedWorkouts/${user.uid}/${params.workoutId}`
+						),
+						{
+							name: title,
+							icon: emoji,
+							exercises: filteredExercises,
+						}
+					)
+						.then(() => {
+							toast.success(
+								"Workout shared! The share id is copied to your clipboard."
+							);
+							const shareId = user.uid + ":" + params.workoutId;
+							navigator.clipboard.writeText(shareId);
+							setOpenShare(false);
+						})
+						.catch((error) => {
+							toast.error("Whoops! Something went wrong.");
+							console.error(error);
+						})
+						.finally(() => setLoading(false));
 				}}
 			/>
 			<div className="absolute w-screen h-screen flex items-end justify-center pointer-events-none">
@@ -155,8 +213,8 @@ export default function Workout({ params }: any) {
 							)
 								.then(() => {
 									toast.success("Workout saved!");
-									router.back();
 									setLoading(false);
+									router.back();
 								})
 								.catch((error) => {
 									toast.error(
@@ -164,7 +222,8 @@ export default function Workout({ params }: any) {
 									);
 									setLoading(false);
 									console.error(error);
-								});
+								})
+								.finally(() => setLoading(false));
 						}}
 					>
 						Save

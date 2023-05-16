@@ -7,14 +7,15 @@ import { User, onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "../libs/firebase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+	faCloudDownload,
 	faDeleteLeft,
 	faPlus,
-	faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import BackArrow from "../components/BackArrow";
 import EmojiPicker from "emoji-picker-react";
-import { child, push, ref, set } from "firebase/database";
+import { child, get, push, ref, set } from "firebase/database";
 import { toast } from "react-hot-toast";
+import InputModal from "../components/InputModal";
 
 type Exercise = {
 	name: string;
@@ -29,6 +30,7 @@ export default function Home() {
 	const [showEmoijiPicker, setShowEmojiPicker] = useState(false);
 	const [emoji, setEmoji] = useState<any>("");
 	const [title, setTitle] = useState("");
+	const [openShare, setOpenShare] = useState(false);
 	const [exercises, setExercises] = useState<Exercise[]>([
 		{
 			name: "",
@@ -71,6 +73,49 @@ export default function Home() {
 					/>
 				</div>
 			)}
+			<div className="absolute w-screen h-screen flex justify-end items-start pointer-events-none">
+				<div className="p-7 pointer-events-auto flex gap-3">
+					<FontAwesomeIcon
+						icon={faCloudDownload}
+						size="2xl"
+						color="#FFFFFF"
+						onClick={() => {
+							setOpenShare(true);
+						}}
+					/>
+				</div>
+			</div>
+			<InputModal
+				open={openShare}
+				setOpen={setOpenShare}
+				prompt="Import a workout!"
+				subPrompt="Enter a share id down below to copy a workout."
+				onConfirm={(input) => {
+					const shareId = input.split(":")[0];
+					const sharedWorkoutId = input.split(":")[1];
+					get(ref(db, `sharedWorkouts/${shareId}/${sharedWorkoutId}`))
+						.then((snapshot) => {
+							if (snapshot.exists()) {
+								setExercises(snapshot.val().exercises);
+								setTitle(snapshot.val().name);
+								setEmoji(snapshot.val().icon);
+								toast.success("Workout imported!");
+								setInitializing(false);
+							} else {
+								toast.error("Whoops! Something went wrong.");
+								setInitializing(false);
+							}
+						})
+						.catch((error) => {
+							toast.error("Whoops! Something went wrong.");
+							console.error(error);
+						})
+						.finally(() => setLoading(false));
+					setOpenShare(false);
+				}}
+				placeholder="Share ID"
+				type="text"
+			/>
 			<div className="absolute w-screen h-screen flex items-end justify-center pointer-events-none">
 				<div className="mb-7 w-32 h-14">
 					<Button
@@ -130,6 +175,7 @@ export default function Home() {
 					type="text"
 					className="h-12 text-4xl text-white bg-transparent min-w-28 focus:outline-none"
 					placeholder="Name"
+					defaultValue={title}
 					maxLength={17}
 					onChange={(e) => setTitle(e.target.value)}
 				></input>

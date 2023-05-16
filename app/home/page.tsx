@@ -47,7 +47,13 @@ export default function Home() {
 	useEffect(() => {
 		onAuthStateChanged(auth, (user) => {
 			if (user) {
+				if (!user.emailVerified) {
+					toast.error(
+						"Please verify your email address! Click the button in settings to send a verfication email."
+					);
+				}
 				setUser(user);
+				console.log(user);
 
 				get(ref(db, `${user.uid}/workouts`))
 					.then((snapshot) => {

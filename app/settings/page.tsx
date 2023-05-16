@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import {
 	User,
 	onAuthStateChanged,
+	sendEmailVerification,
 	sendPasswordResetEmail,
 	signOut,
 } from "firebase/auth";
@@ -119,6 +120,31 @@ export default function Settings() {
 			</div>
 
 			<div className="z-10 w-screen flex flex-col items-center gap-2 pt-24">
+				{!user.emailVerified && (
+					<div
+						className="flex flex-row justify-between w-5/6 h-16"
+						onClick={() => {
+							sendEmailVerification(user);
+							toast.success("Verification email sent!");
+						}}
+					>
+						<div className="h-full w-16 bg-[#141414] rounded-md flex items-center justify-center">
+							<FontAwesomeIcon
+								icon={faEnvelope}
+								size="xl"
+								color="#505050"
+							/>
+						</div>
+						<div className="h-full w-52 flex items-center font-light pl-3">
+							<p>Verify Email</p>
+						</div>
+
+						<div className="h-full flex items-center justify-center">
+							<FontAwesomeIcon icon={faAngleRight} size="2xl" />
+						</div>
+					</div>
+				)}
+
 				<div
 					className="flex flex-row justify-between w-5/6 h-16"
 					onClick={() =>
