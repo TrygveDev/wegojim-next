@@ -103,6 +103,7 @@ export default function Home() {
 						onClick={() => {
 							router.push(`/addworkout`);
 						}}
+						onContextMenu={() => setEditMode((value) => !value)}
 					>
 						<FontAwesomeIcon icon={faPlus} size="2x" />
 					</div>
@@ -120,6 +121,7 @@ export default function Home() {
 									? router.push(`/editworkout/${workout[0]}`)
 									: router.push(`/workout/${workout[0]}`);
 							}}
+							onContextMenu={() => setEditMode((value) => !value)}
 						>
 							<p className="text-5xl">{workout[1].icon}</p>
 							<h1 className="text-lg text-center">
