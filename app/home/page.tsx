@@ -73,19 +73,19 @@ export default function Home() {
 	}, [router]);
 
 	return initializing ? (
-		<div className="flex h-screen w-screen flex-col items-center justify-center bg-[#141414]">
+		<div className="flex h-screen w-screen flex-col items-center justify-center bg-[var(--secondary)]">
 			<CircularProgress />
 		</div>
 	) : (
-		<main className="flex h-screen w-screen flex-col items-center bg-[#141414]">
+		<main className="flex h-screen w-screen flex-col items-center bg-[var(--secondary)]">
 			{/* Header */}
 			<div className="w-screen pl-7 pr-7 pt-20">
-				<h1 className="text-3xl text-white">Start a workout</h1>
+				<h1 className="text-3xl">Start a workout</h1>
 			</div>
 
 			{/* Search */}
 			<div className="w-screen pl-7 pr-7 pt-5 pb-3 flex gap-1">
-				<div className="flex items-center gap-2 bg-[#252525] p-3 rounded-2xl text-lg w-full">
+				<div className="flex items-center gap-2 bg-[var(--secondary-button)] p-3 rounded-2xl text-lg w-full">
 					<FontAwesomeIcon icon={faMagnifyingGlass} size="1x" />
 					<input
 						className="bg-transparent w-full focus:outline-none"
@@ -102,10 +102,10 @@ export default function Home() {
 			</div>
 
 			{/* Workouts */}
-			<div className="w-screen pl-7 pr-7 flex flex-wrap gap-3 overflow-y-scroll pb-36">
+			<div className="w-screen h-screen pl-7 pr-7 flex flex-wrap gap-3 overflow-y-scroll pb-36">
 				{(editMode || !workouts) && (
 					<div
-						className="w-[calc(50%-0.375rem)] h-[calc(50vw-2.125rem)] rounded-lg bg-[#252525] flex flex-col items-center justify-center"
+						className="w-[calc(50%-0.375rem)] h-[calc(50vw-2.125rem)] rounded-lg bg-[var(--secondary-button)] flex flex-col items-center justify-center"
 						onClick={() => {
 							router.push(`/addworkout`);
 						}}
@@ -117,7 +117,7 @@ export default function Home() {
 				{workouts &&
 					Object.entries(workouts).map((workout, i) => (
 						<div
-							className={`w-[calc(50%-0.375rem)] h-[calc(50vw-2.125rem)] rounded-lg bg-[#252525] flex flex-col items-center justify-evenly ${
+							className={`w-[calc(50%-0.375rem)] h-[calc(50vw-2.125rem)] rounded-lg bg-[var(--secondary-button)] flex flex-col items-center justify-evenly ${
 								editMode && "wegojim-edit"
 							}
 							`}

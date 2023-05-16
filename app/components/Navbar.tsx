@@ -33,11 +33,11 @@ const Navbar = (props: Props) => {
 					onClick={() => router.push("/settings")}
 				/>
 			</div>
-			<div className="h-14 w-full mb-6 pointer-events-auto rounded-2xl bg-[#1E1E1E] flex flex-row justify-evenly items-center">
+			<div className="h-14 w-full mb-6 pointer-events-auto rounded-2xl bg-[#171716] flex flex-row justify-evenly items-center">
 				<FontAwesomeIcon
 					icon={faChartSimple}
 					size="xl"
-					color={path === "/stats" ? "#FFF" : "#8E8E8E"}
+					color={path === "/stats" ? "#fafafa" : "#0a0706"}
 					onClick={() =>
 						toast.error("This feature is not available yet!")
 					}
@@ -46,13 +46,13 @@ const Navbar = (props: Props) => {
 				<FontAwesomeIcon
 					icon={faHome}
 					size="xl"
-					color={path === "/home" ? "#FFF" : "#8E8E8E"}
+					color={path === "/home" ? "#fafafa" : "#0a0706"}
 					onClick={() => router.push("/home")}
 				/>
 				<FontAwesomeIcon
 					icon={faUsers}
 					size="xl"
-					color={path === "/social" ? "#FFF" : "#8E8E8E"}
+					color={path === "/social" ? "#fafafa" : "#0a0706"}
 					onClick={() =>
 						toast.error("This feature is not available yet!")
 					}

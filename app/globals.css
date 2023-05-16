@@ -3,7 +3,12 @@
 @tailwind utilities;
 
 :root {
-	color: white;
+	--primary: #fafafa;
+	--secondary: #0a0a0a;
+	--primary-button: #9e9ca0;
+	--secondary-button: #171716;
+	--accent: #6b696d;
+	color: var(--primary);
 }
 body {
 	width: 100svw;
@@ -36,5 +41,4 @@ body {
 
 .wegojim-edit {
 	animation: tilt-shaking 0.5s infinite ease-in-out !important;
-	background-color: #252525;
 }

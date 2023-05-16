@@ -47,7 +47,7 @@ export default function Home() {
 				alt=""
 				className="w-100 h-[calc(100vh-15rem)] absolute top-60"
 			/>
-			<BackArrow />
+			<BackArrow path={"/"} />
 
 			{/* Title */}
 			<div className="flex flex-col items-center justify-center z-10">

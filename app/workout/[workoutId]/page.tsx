@@ -56,14 +56,14 @@ export default function Workout({ params }: any) {
 	};
 
 	return initializing ? (
-		<div className="flex h-screen w-screen flex-col items-center justify-center bg-[#141414]">
+		<div className="flex h-screen w-screen flex-col items-center justify-center bg-[var(--secondary)]">
 			<CircularProgress />
 		</div>
 	) : (
-		<main className="flex h-screen w-screen flex-col items-center bg-[#141414]">
+		<main className="flex h-screen w-screen flex-col items-center bg-[var(--secondary)]">
 			<BackArrow />
 			<div className="w-screen pl-7 pr-7 pt-20 pb-5">
-				<h1 className="text-3xl text-white">{workout.name}</h1>
+				<h1 className="text-3xl">{workout.name}</h1>
 			</div>
 			<div className="w-screen pl-7 pr-7 flex flex-col gap-3 overflow-y-scroll">
 				{workout &&
@@ -71,7 +71,7 @@ export default function Workout({ params }: any) {
 						active === exercise[0] ? (
 							<div
 								className={
-									"w-full min-h-32 rounded-lg bg-[#4CAF50] flex flex-col"
+									"w-full min-h-32 rounded-lg bg-[var(--accent)] flex flex-col"
 								}
 								key={i}
 								onClick={() => handleExerciseClick(exercise)}
@@ -128,7 +128,7 @@ export default function Workout({ params }: any) {
 						) : (
 							<div
 								className={
-									"w-full h-20 rounded-lg bg-[#1E1E1E] flex flex-row items-center"
+									"w-full h-20 rounded-lg bg-[var(--secondary-button)] flex flex-row items-center"
 								}
 								key={i}
 								onClick={() => setActive(exercise[0])}

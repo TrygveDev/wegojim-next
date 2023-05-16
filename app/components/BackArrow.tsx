@@ -8,12 +8,14 @@ type Props = {
 	confirm?: boolean;
 	confirmPrompt?: string;
 	confirmSubPropmt?: string;
+	path?: string;
 };
 
 const BackArrow: React.FC<Props> = ({
 	confirm,
 	confirmPrompt,
 	confirmSubPropmt,
+	path,
 }) => {
 	const route = useRouter();
 	const [open, setOpen] = useState(false);
@@ -26,7 +28,7 @@ const BackArrow: React.FC<Props> = ({
 					setOpen={setOpen}
 					prompt={confirmPrompt}
 					subPrompt={confirmSubPropmt}
-					onConfirm={() => route.back()}
+					onConfirm={() => (path ? route.push(path) : route.back())}
 				/>
 			)}
 
@@ -35,7 +37,11 @@ const BackArrow: React.FC<Props> = ({
 				size="xl"
 				className="pointer-events-auto"
 				onClick={() =>
-					confirm ? setOpen((value) => !value) : route.back()
+					confirm
+						? setOpen((value) => !value)
+						: path
+						? route.push(path)
+						: route.back()
 				}
 			/>
 		</div>

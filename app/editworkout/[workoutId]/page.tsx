@@ -64,11 +64,11 @@ export default function Workout({ params }: any) {
 	}, [params.workoutId, router]);
 
 	return initializing ? (
-		<div className="flex h-screen w-screen flex-col items-center justify-center bg-[#141414]">
+		<div className="flex h-screen w-screen flex-col items-center justify-center bg-[var(--secondary)]">
 			<CircularProgress />
 		</div>
 	) : (
-		<main className="flex h-screen w-screen flex-col items-center bg-[#141414]">
+		<main className="flex h-screen w-screen flex-col items-center bg-[var(--secondary)]">
 			<BackArrow
 				confirm
 				confirmPrompt="Go back?"
@@ -97,7 +97,6 @@ export default function Workout({ params }: any) {
 					<FontAwesomeIcon
 						icon={faShare}
 						size="2xl"
-						color="#FFFFFF"
 						onClick={() => {
 							setOpenShare(true);
 						}}
@@ -233,7 +232,7 @@ export default function Workout({ params }: any) {
 			<div className="w-screen pl-7 pr-7 pt-24 pb-5 flex flex-col">
 				<input
 					type="text"
-					className="h-12 text-4xl text-white bg-transparent min-w-28 focus:outline-none"
+					className="h-12 text-4xl bg-transparent min-w-28 focus:outline-none"
 					placeholder="Name"
 					maxLength={17}
 					defaultValue={title}
@@ -241,7 +240,7 @@ export default function Workout({ params }: any) {
 				></input>
 				<input
 					type="text"
-					className="text-xl text-white bg-transparent w-14 focus:outline-none"
+					className="text-xl bg-transparent w-14 focus:outline-none"
 					placeholder="Emoji"
 					defaultValue={emoji}
 					maxLength={0}
@@ -260,7 +259,7 @@ export default function Workout({ params }: any) {
 								<div key={i} className="flex items-center">
 									<div
 										className={
-											"w-full h-20 rounded-lg bg-[#1E1E1E] flex flex-row items-center"
+											"w-full h-20 rounded-lg bg-[var(--secondary-button)] flex flex-row items-center"
 										}
 									>
 										<div className="w-7/12 pl-5">
@@ -343,7 +342,7 @@ export default function Workout({ params }: any) {
 						]);
 					}}
 				>
-					<FontAwesomeIcon icon={faPlus} color="white" />
+					<FontAwesomeIcon icon={faPlus} />
 					<p>add exercise</p>
 				</div>
 			</div>

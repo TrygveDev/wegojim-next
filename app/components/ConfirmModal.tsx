@@ -17,7 +17,7 @@ const ConfirmModal = (props: Props) => {
 			onClose={() => props.setOpen((value) => !value)}
 			disableAutoFocus
 		>
-			<div className="bg-[#141414] w-5/6 flex flex-col items-center justify-between gap-5 text-center rounded-lg">
+			<div className="bg-[var(--secondary)] w-5/6 flex flex-col items-center justify-between gap-5 text-center rounded-lg">
 				<div className="pt-5 pr-10 pl-10">
 					<h1 className="text-xl font-bold">{props.prompt}</h1>
 					{props.subPrompt && (
