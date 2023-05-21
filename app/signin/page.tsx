@@ -18,6 +18,7 @@ import {
 import { auth } from "../libs/firebase";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
+import Loading from "../loading";
 
 export default function Home() {
 	const router = useRouter();
@@ -37,9 +38,7 @@ export default function Home() {
 	}, [router]);
 
 	return initializing ? (
-		<div className="flex h-screen w-screen flex-col items-center justify-center bg-black bg-opacity-75 bg-[url('/images/lockbackground.jpg')] bg-cover bg-center bg-blend-multiply">
-			<CircularProgress />
-		</div>
+		<Loading />
 	) : (
 		<main className="flex h-screen w-screen flex-col items-center justify-evenly bg-black bg-opacity-75 bg-[url('/images/singinbackground.jpg')] bg-cover bg-center bg-blend-multiply">
 			<Image
