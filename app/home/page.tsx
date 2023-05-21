@@ -24,6 +24,8 @@ import {
 	faMagnifyingGlass,
 	faPlus,
 } from "@fortawesome/free-solid-svg-icons";
+import Link from "next/link";
+import Loading from "../loading";
 
 export default function Home() {
 	const router = useRouter();
@@ -73,9 +75,7 @@ export default function Home() {
 	}, [router]);
 
 	return initializing ? (
-		<div className="flex h-screen w-screen flex-col items-center justify-center bg-[var(--secondary)]">
-			<CircularProgress />
-		</div>
+		<Loading />
 	) : (
 		<main className="flex h-screen w-screen flex-col items-center bg-[var(--secondary)]">
 			{/* Header */}
@@ -116,24 +116,30 @@ export default function Home() {
 				)}
 				{workouts &&
 					Object.entries(workouts).map((workout, i) => (
-						<div
-							className={`w-[calc(50%-0.375rem)] h-[calc(50vw-2.125rem)] rounded-lg bg-[var(--secondary-button)] flex flex-col items-center justify-evenly ${
-								editMode && "wegojim-edit"
-							}
-							`}
+						<Link
 							key={i}
-							onClick={() => {
+							className="w-[calc(50%-0.375rem)] h-[calc(50vw-2.125rem)]"
+							href={
 								editMode
-									? router.push(`/editworkout/${workout[0]}`)
-									: router.push(`/workout/${workout[0]}`);
-							}}
-							onContextMenu={() => setEditMode((value) => !value)}
+									? `/editworkout/${workout[0]}`
+									: `/workout/${workout[0]}`
+							}
 						>
-							<p className="text-5xl">{workout[1].icon}</p>
-							<h1 className="text-lg text-center">
-								{workout[1].name}
-							</h1>
-						</div>
+							<div
+								className={`w-full h-full rounded-lg bg-[var(--secondary-button)] flex flex-col items-center justify-evenly ${
+									editMode && "wegojim-edit"
+								}
+							`}
+								onContextMenu={() =>
+									setEditMode((value) => !value)
+								}
+							>
+								<p className="text-5xl">{workout[1].icon}</p>
+								<h1 className="text-lg text-center">
+									{workout[1].name}
+								</h1>
+							</div>
+						</Link>
 					))}
 			</div>
 			<Navbar />

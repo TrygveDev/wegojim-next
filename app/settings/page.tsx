@@ -50,7 +50,7 @@ export default function Settings() {
 			<CircularProgress />
 		</div>
 	) : (
-		<main className="flex h-screen w-screen flex-col items-center bg-[var(--secondary)]">
+		<main className="flex w-screen flex-col items-center bg-[var(--secondary)] pb-5">
 			<ConfirmModal
 				prompt="Do you wannt to send a email verification mail?"
 				open={verifyModal}

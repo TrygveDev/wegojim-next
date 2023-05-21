@@ -4,10 +4,10 @@
 
 :root {
 	--primary: #fafafa;
-	--secondary: #0a0a0a;
-	--primary-button: #9e9ca0;
-	--secondary-button: #171716;
-	--accent: #6b696d;
+	--secondary: #121212;
+	--primary-button: #b5b2b7;
+	--secondary-button: #343432;
+	--accent: #7e7c81;
 	color: var(--primary);
 }
 body {
