@@ -55,7 +55,6 @@ export default function Home() {
 					);
 				}
 				setUser(user);
-				console.log(user);
 
 				get(ref(db, `${user.uid}/workouts`))
 					.then((snapshot) => {
@@ -130,9 +129,10 @@ export default function Home() {
 									editMode && "wegojim-edit"
 								}
 							`}
-								onContextMenu={() =>
-									setEditMode((value) => !value)
-								}
+								onContextMenu={(e) => {
+									e.preventDefault();
+									setEditMode((value) => !value);
+								}}
 							>
 								<p className="text-5xl">{workout[1].icon}</p>
 								<h1 className="text-lg text-center">
