@@ -101,7 +101,7 @@ export default function Home() {
 			</div>
 
 			{/* Workouts */}
-			<div className="w-screen h-screen pl-7 pr-7 flex flex-wrap gap-3 overflow-y-scroll pb-36">
+			<div className="w-screen h-screen pl-7 pr-7 flex content-start flex-wrap gap-3 overflow-y-scroll pb-36">
 				{(editMode || !workouts) && (
 					<div
 						className="w-[calc(50%-0.375rem)] h-[calc(50vw-2.125rem)] rounded-lg flex flex-col items-center justify-center"
