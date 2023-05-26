@@ -1,5 +1,5 @@
-import { Button, Modal } from "@mui/material";
-import React, { useState } from "react";
+import { Modal } from "@mui/material";
+import React from "react";
 
 type Props = {
 	prompt: string;
@@ -17,31 +17,28 @@ const ConfirmModal = (props: Props) => {
 			onClose={() => props.setOpen((value) => !value)}
 			disableAutoFocus
 		>
-			<div className="bg-[var(--secondary)] w-5/6 flex flex-col items-center justify-between gap-5 text-center rounded-lg">
-				<div className="pt-5 pr-10 pl-10">
+			<div className="bg-[var(--secondary)] w-5/6 min-h-[20vh] flex flex-col items-center justify-between gap-5 text-center rounded-lg">
+				<div className="pt-5 pr-5 pl-5 h-full flex flex-col items-center justify-center">
 					<h1 className="text-xl font-bold">{props.prompt}</h1>
 					{props.subPrompt && (
 						<p className=" text-xs">{props.subPrompt}</p>
 					)}
 				</div>
 
-				<div className="w-full flex flex-col items-center gap-2 pb-5 pr-5 pl-5">
-					<Button
-						variant="contained"
-						color="success"
-						className="w-full"
+				<div className="w-full h-[10vh] flex flex-row items-center">
+					<button
+						className="bg-[var(--secondary-button)] h-full text-lg w-full flex items-center justify-center rounded-bl"
+						onClick={() => props.setOpen((value) => !value)}
+					>
+						Cancel
+					</button>
+
+					<button
+						className="bg-[var(--primary-button)] h-full text-lg w-full flex items-center justify-center rounded-br"
 						onClick={props.onConfirm}
 					>
 						Yes
-					</Button>
-					<Button
-						variant="contained"
-						color="error"
-						className="w-full"
-						onClick={() => props.setOpen((value) => !value)}
-					>
-						No
-					</Button>
+					</button>
 				</div>
 			</div>
 		</Modal>

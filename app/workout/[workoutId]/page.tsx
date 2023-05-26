@@ -58,11 +58,16 @@ export default function Workout({ params }: any) {
 	return initializing ? (
 		<Loading />
 	) : (
-		<main className="flex h-screen w-screen flex-col items-center bg-[var(--secondary)]">
+		<main className="min-h-screen max-h-fit w-screen flex flex-col items-center bg-[var(--secondary)] pb-7">
 			<BackArrow />
 
 			{/* Weight input modal */}
-			<WeightInputModal open={weightSubmit} setOpen={setWeightSubmit} />
+			<WeightInputModal
+				open={weightSubmit}
+				setOpen={setWeightSubmit}
+				active={active}
+				workout={workout}
+			/>
 
 			{/* Title */}
 			<div className="w-screen pl-7 pr-7 pt-20 pb-5">

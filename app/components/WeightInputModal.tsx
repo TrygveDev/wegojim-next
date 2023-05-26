@@ -7,6 +7,20 @@ import { toast } from "react-hot-toast";
 type Props = {
 	open: boolean;
 	setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+	active: string;
+	workout: Workout;
+};
+
+type Workout = {
+	name: string;
+	icon: string;
+	exercises: {
+		[key: string]: {
+			name: string;
+			sets: string | number;
+			reps: string | number;
+		};
+	};
 };
 
 type Weight = {
@@ -16,9 +30,23 @@ type Weight = {
 const WeightInputModal = (props: Props) => {
 	const [weights, setWeights] = useState<Weight[]>([
 		{
-			weight: null,
+			weight: 0,
 		},
 	]);
+
+	const progress = useState({
+		workoutId: {
+			"Date.now": {
+				[props.active]: {
+					weight: [120, 130, 140],
+				},
+				[props.active]: {
+					weight: [120, 130, 140],
+				},
+			},
+		},
+	});
+
 	return (
 		<Modal
 			className="flex flex-col items-center justify-center"
@@ -26,14 +54,15 @@ const WeightInputModal = (props: Props) => {
 			onClose={() => props.setOpen((value) => !value)}
 			disableAutoFocus
 		>
-			<div className="bg-[var(--secondary)] w-5/6 pt-5 pb-5 flex flex-col items-center justify-between gap-5 text-center rounded-lg">
+			<div className="bg-[var(--secondary)] w-5/6 min-h-[20vh] flex flex-col items-center justify-between gap-5 text-center rounded-lg">
 				{/* Titles */}
-				<div className="pt-5 pr-10 pl-10">
+				<div className="pr-5 pl-5 pt-5 flex flex-col items-center justify-center">
 					<h1 className="text-xl font-bold">Track your progress!</h1>
 					<p className=" text-xs">
 						Enter the weight you used for this exercise.
 					</p>
 				</div>
+
 				{/* Inputs */}
 				<div className="max-h-72 flex flex-col gap-2 overflow-y-scroll">
 					{weights.length > 0
@@ -93,7 +122,7 @@ const WeightInputModal = (props: Props) => {
 
 				{/* Add button */}
 				<div
-					className="flex gap-2 items-center justify-start w-full pl-8"
+					className="flex gap-2 items-center justify-start w-fit"
 					onClick={() => {
 						if (weights.length < 10) {
 							setWeights((value) => [...value, { weight: null }]);
@@ -107,29 +136,28 @@ const WeightInputModal = (props: Props) => {
 				</div>
 
 				{/* Submit */}
-				<div className="w-full flex flex-col items-center gap-2 pb-5 pr-5 pl-5">
-					<Button
-						variant="contained"
-						color="success"
-						className="w-full"
-						onClick={() => {
-							console.log(weights);
-							if (weights.length === 0)
-								return toast.error(
-									"You have to add atleast one set!"
-								);
-						}}
-					>
-						Ok
-					</Button>
-					<Button
-						variant="contained"
-						color="error"
-						className="w-full"
+				<div className="w-full h-[10vh] flex flex-row items-center">
+					<button
+						className="bg-[var(--secondary-button)] h-full text-lg w-full flex items-center justify-center rounded-bl"
 						onClick={() => props.setOpen((value) => !value)}
 					>
-						Dont track
-					</Button>
+						Dont Track
+					</button>
+
+					<button
+						className="bg-[var(--primary-button)] h-full text-lg w-full flex items-center justify-center rounded-br"
+						onClick={() => {
+							console.log(weights);
+							setWeights([
+								{
+									weight: null,
+								},
+							]);
+							props.setOpen((value) => !value);
+						}}
+					>
+						Confirm
+					</button>
 				</div>
 			</div>
 		</Modal>

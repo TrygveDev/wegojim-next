@@ -10,8 +10,6 @@ import {
 } from "firebase/auth";
 import { auth } from "../libs/firebase";
 import BackArrow from "../components/BackArrow";
-import Image from "next/image";
-import wave from "@/public/images/wavelight.png";
 import { Avatar, CircularProgress } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -25,6 +23,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-hot-toast";
 import ConfirmModal from "../components/ConfirmModal";
+import Loading from "../loading";
 
 export default function Settings() {
 	const router = useRouter();
@@ -46,13 +45,11 @@ export default function Settings() {
 	}, [router]);
 
 	return initializing ? (
-		<div className="flex h-screen w-screen flex-col items-center justify-center bg-[var(--secondary)]">
-			<CircularProgress />
-		</div>
+		<Loading />
 	) : (
-		<main className="flex w-screen flex-col items-center bg-[var(--secondary)] pb-5">
+		<main className="min-h-screen max-h-fit w-screen flex flex-col items-center bg-[var(--secondary)] pl-7 pr-7 pb-7">
 			<ConfirmModal
-				prompt="Do you wannt to send a email verification mail?"
+				prompt="Send a email verification mail?"
 				open={verifyModal}
 				setOpen={setVerifyModal}
 				onConfirm={() => {
@@ -68,12 +65,12 @@ export default function Settings() {
 				onConfirm={() => {
 					signOut(auth).then(() => {
 						toast.success("Signed out!");
-						router.push("/");
+						router.push("/auth");
 					});
 				}}
 			/>
 			<ConfirmModal
-				prompt="Do you wannt to send a password reset mail?"
+				prompt="Send a password reset mail?"
 				open={resetPasswordModal}
 				setOpen={setResetPasswordModal}
 				onConfirm={() => {
@@ -85,18 +82,19 @@ export default function Settings() {
 			<BackArrow />
 
 			{/* Avatar */}
-			<div className="pt-28 z-10 flex justify-end items-end">
+			<div className="pt-28 flex justify-end items-end">
 				<Avatar
 					src={user ? (user.photoURL ? user.photoURL : "") : ""}
 					sx={{
 						width: 108,
 						height: 108,
-						border: "3px solid var(--accent)",
+						border: "3px solid var(--primary)",
 					}}
 				/>
-				<div className="bg-[var(--accent)] w-7 h-7 rounded-full flex items-center justify-center absolute">
+				<div className="bg-[var(--primary)] w-7 h-7 rounded-full flex items-center justify-center absolute">
 					<FontAwesomeIcon
 						icon={faEdit}
+						color="var(--secondary)"
 						onClick={() => {
 							const provider = user.providerData[0].providerId;
 							if (provider != "password") {
@@ -113,7 +111,7 @@ export default function Settings() {
 				</div>
 			</div>
 			{/* Userinfo */}
-			<div className="z-10">
+			<div>
 				<h1 className="text-center text-2xl pt-2 pb-1">
 					{user && user.displayName}
 				</h1>
@@ -129,18 +127,14 @@ export default function Settings() {
 				</p>
 			</div>
 
-			<div className="z-10 w-screen flex flex-col items-center gap-2 pt-24">
+			<div className="w-screen flex flex-col items-center gap-2 pt-10">
 				{!user.emailVerified && (
 					<div
 						className="flex flex-row justify-between w-5/6 h-16"
 						onClick={() => setVerifyModal(true)}
 					>
-						<div className="h-full w-16 bg-[var(--secondary-button)] rounded-md flex items-center justify-center">
-							<FontAwesomeIcon
-								icon={faEnvelope}
-								size="xl"
-								color="#505050"
-							/>
+						<div className="h-full w-16 bg-[var(--primary-button)] rounded-md flex items-center justify-center">
+							<FontAwesomeIcon icon={faEnvelope} size="xl" />
 						</div>
 						<div className="h-full w-52 flex items-center font-light pl-3">
 							<p>Verify Email</p>
@@ -158,12 +152,8 @@ export default function Settings() {
 						toast.error("This feature is not available yet!")
 					}
 				>
-					<div className="h-full w-16 bg-[var(--secondary-button)] rounded-md flex items-center justify-center">
-						<FontAwesomeIcon
-							icon={faEnvelope}
-							size="xl"
-							color="#505050"
-						/>
+					<div className="h-full w-16 bg-[var(--primary-button)] rounded-md flex items-center justify-center">
+						<FontAwesomeIcon icon={faEnvelope} size="xl" />
 					</div>
 					<div className="h-full w-52 flex items-center font-light pl-3">
 						<p>Change Email</p>
@@ -178,12 +168,8 @@ export default function Settings() {
 					className="flex flex-row justify-between w-5/6 h-16"
 					onClick={() => setResetPasswordModal(true)}
 				>
-					<div className="h-full w-16 bg-[var(--secondary-button)] rounded-md flex items-center justify-center">
-						<FontAwesomeIcon
-							icon={faLock}
-							size="xl"
-							color="#505050"
-						/>
+					<div className="h-full w-16 bg-[var(--primary-button)] rounded-md flex items-center justify-center">
+						<FontAwesomeIcon icon={faLock} size="xl" />
 					</div>
 					<div className="h-full w-52 flex items-center font-light pl-3">
 						<p>Change Password</p>
@@ -195,19 +181,15 @@ export default function Settings() {
 				</div>
 			</div>
 
-			<div className="z-10 w-screen flex flex-col items-center pt-16 gap-2">
+			<div className="w-screen flex flex-col items-center pt-10 gap-2">
 				<div
 					className="flex flex-row justify-between w-5/6 h-16"
 					onClick={() =>
 						toast.error("This feature is not available yet!")
 					}
 				>
-					<div className="h-full w-16 bg-[var(--primary-button)] rounded-md flex items-center justify-center">
-						<FontAwesomeIcon
-							icon={faUserPlus}
-							size="xl"
-							color="#141414"
-						/>
+					<div className="h-full w-16 bg-[var(--secondary-button)] rounded-md flex items-center justify-center">
+						<FontAwesomeIcon icon={faUserPlus} size="xl" />
 					</div>
 					<div className="h-full w-52 flex items-center font-light pl-3">
 						<p>Invite a friend</p>
@@ -224,12 +206,8 @@ export default function Settings() {
 						toast.error("This feature is not available yet!")
 					}
 				>
-					<div className="h-full w-16 bg-[var(--primary-button)] rounded-md flex items-center justify-center">
-						<FontAwesomeIcon
-							icon={faComments}
-							size="xl"
-							color="#141414"
-						/>
+					<div className="h-full w-16 bg-[var(--secondary-button)] rounded-md flex items-center justify-center">
+						<FontAwesomeIcon icon={faComments} size="xl" />
 					</div>
 					<div className="h-full w-52 flex items-center font-light pl-3">
 						<p>Help</p>
@@ -244,12 +222,8 @@ export default function Settings() {
 					className="flex flex-row justify-between w-5/6 h-16"
 					onClick={() => setSignOutModal(true)}
 				>
-					<div className="h-full w-16 bg-[var(--primary-button)] rounded-md flex items-center justify-center">
-						<FontAwesomeIcon
-							icon={faSignOutAlt}
-							size="xl"
-							color="#141414"
-						/>
+					<div className="h-full w-16 bg-[var(--secondary-button)] rounded-md flex items-center justify-center">
+						<FontAwesomeIcon icon={faSignOutAlt} size="xl" />
 					</div>
 					<div className="h-full w-52 flex items-center font-light pl-3">
 						<p>Sign Out</p>
