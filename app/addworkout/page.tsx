@@ -16,6 +16,7 @@ import EmojiPicker from "emoji-picker-react";
 import { child, get, push, ref, set } from "firebase/database";
 import { toast } from "react-hot-toast";
 import InputModal from "../components/InputModal";
+import Loading from "../loading";
 
 type Exercise = {
 	name: string;
@@ -52,9 +53,7 @@ export default function Home() {
 	}, [router]);
 
 	return initializing ? (
-		<div className="flex h-screen w-screen flex-col items-center justify-center bg-[var(--secondary)]">
-			<CircularProgress />
-		</div>
+		<Loading />
 	) : (
 		<main className="flex h-screen w-screen flex-col items-center bg-[var(--secondary)]">
 			<BackArrow

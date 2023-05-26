@@ -3,6 +3,7 @@
 import BackArrow from "@/app/components/BackArrow";
 import ConfirmModal from "@/app/components/ConfirmModal";
 import { auth, db } from "@/app/libs/firebase";
+import Loading from "@/app/loading";
 import {
 	faDeleteLeft,
 	faPlus,
@@ -64,9 +65,7 @@ export default function Workout({ params }: any) {
 	}, [params.workoutId, router]);
 
 	return initializing ? (
-		<div className="flex h-screen w-screen flex-col items-center justify-center bg-[var(--secondary)]">
-			<CircularProgress />
-		</div>
+		<Loading />
 	) : (
 		<main className="flex h-screen w-screen flex-col items-center bg-[var(--secondary)]">
 			<BackArrow
