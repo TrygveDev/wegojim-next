@@ -91,7 +91,12 @@ export default function Home() {
 				onConfirm={(input) => {
 					const shareId = input.split(":")[0];
 					const sharedWorkoutId = input.split(":")[1];
-					get(ref(db, `sharedWorkouts/${shareId}/${sharedWorkoutId}`))
+					get(
+						ref(
+							db,
+							`userSharedWorkouts/${shareId}/${sharedWorkoutId}`
+						)
+					)
 						.then((snapshot) => {
 							if (snapshot.exists()) {
 								setExercises(snapshot.val().exercises);
@@ -143,9 +148,9 @@ export default function Home() {
 							}
 
 							const uidkey = push(
-								child(ref(db), `${user.uid}/workouts`)
+								child(ref(db), `userWorkouts/${user.uid}`)
 							).key;
-							set(ref(db, `${user.uid}/workouts/${uidkey}`), {
+							set(ref(db, `userWorkouts/${user.uid}/${uidkey}`), {
 								name: title,
 								icon: emoji,
 								exercises: filteredExercises,
