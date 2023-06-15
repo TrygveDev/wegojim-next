@@ -1,15 +1,5 @@
 "use client";
 
-// const uidkey = push(child(ref(db), `${user.uid}/workouts`)).key;
-// set(ref(db, `${user.uid}/workouts/${uidkey}`), {})
-// 	.then(() => {
-// 		// Data saved successfully!
-// 	})
-// 	.catch((error) => {
-// 		// The write failed...
-// 	});
-
-import { CircularProgress } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { User, onAuthStateChanged } from "firebase/auth";
@@ -20,7 +10,6 @@ import { toast } from "react-hot-toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
 	faEllipsisV,
-	faHandDots,
 	faMagnifyingGlass,
 	faPlus,
 } from "@fortawesome/free-solid-svg-icons";
@@ -56,7 +45,7 @@ export default function Home() {
 				}
 				setUser(user);
 
-				get(ref(db, `${user.uid}/workouts`))
+				get(ref(db, `userWorkouts/${user.uid}`))
 					.then((snapshot) => {
 						if (snapshot.exists()) {
 							setWorkouts(snapshot.val());

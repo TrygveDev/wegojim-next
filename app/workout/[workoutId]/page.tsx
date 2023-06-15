@@ -34,7 +34,7 @@ export default function Workout({ params }: any) {
 	useEffect(() => {
 		onAuthStateChanged(auth, (user) => {
 			if (user) {
-				get(ref(db, `${user.uid}/workouts/${params.workoutId}`))
+				get(ref(db, `userWorkouts/${user.uid}/${params.workoutId}`))
 					.then((snapshot) => {
 						if (snapshot.exists()) {
 							setWorkout(snapshot.val());

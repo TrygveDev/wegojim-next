@@ -41,7 +41,7 @@ export default function Workout({ params }: any) {
 		onAuthStateChanged(auth, (user) => {
 			if (user) {
 				setUser(user);
-				get(ref(db, `${user.uid}/workouts/${params.workoutId}`))
+				get(ref(db, `userWorkouts/${user.uid}/${params.workoutId}`))
 					.then((snapshot) => {
 						if (snapshot.exists()) {
 							setExercises(snapshot.val().exercises);
@@ -109,7 +109,7 @@ export default function Workout({ params }: any) {
 				subPrompt="This action cannot be undone!"
 				onConfirm={() => {
 					set(
-						ref(db, `${user.uid}/workouts/${params.workoutId}`),
+						ref(db, `userWorkouts/${user.uid}/${params.workoutId}`),
 						null
 					)
 						.then(() => {
@@ -146,7 +146,7 @@ export default function Workout({ params }: any) {
 					set(
 						ref(
 							db,
-							`sharedWorkouts/${user.uid}/${params.workoutId}`
+							`userSharedWorkouts/${user.uid}/${params.workoutId}`
 						),
 						{
 							name: title,
@@ -201,7 +201,7 @@ export default function Workout({ params }: any) {
 							set(
 								ref(
 									db,
-									`${user.uid}/workouts/${params.workoutId}`
+									`userWorkouts/${user.uid}/${params.workoutId}`
 								),
 								{
 									name: title,
