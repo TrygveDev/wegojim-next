@@ -15,6 +15,7 @@ import { Button, CircularProgress } from "@mui/material";
 import EmojiPicker from "emoji-picker-react";
 import { User, onAuthStateChanged } from "firebase/auth";
 import { get, ref, set } from "firebase/database";
+import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
@@ -170,18 +171,10 @@ export default function Workout({ params }: any) {
 				}}
 			/>
 			<div className="absolute w-screen h-screen flex items-end justify-center pointer-events-none">
-				<div className="mb-7 w-32 h-14">
-					<Button
+				<div className="mb-7 w-1/2 h-14">
+					<button
 						disabled={loading}
-						variant="contained"
-						color="success"
-						sx={{
-							width: "100%",
-							height: "100%",
-							fontSize: "1.1rem",
-							pointerEvents: "auto",
-							zIndex: 50,
-						}}
+						className="bg-[var(--primary-button)] h-16 text-lg w-full flex items-center justify-evenly rounded"
 						onClick={() => {
 							setLoading(true);
 							const filteredExercises = exercises.filter(
@@ -225,7 +218,7 @@ export default function Workout({ params }: any) {
 						}}
 					>
 						Save
-					</Button>
+					</button>
 				</div>
 			</div>
 			<div className="w-screen pl-7 pr-7 pt-24 pb-5 flex flex-col">
