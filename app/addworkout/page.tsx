@@ -147,9 +147,7 @@ export default function Home() {
 								);
 							}
 
-							const uidkey = push(
-								child(ref(db), `userWorkouts/${user.uid}`)
-							).key;
+							const uidkey = push(child(ref(db), `userWorkouts/${user.uid}/`)).key;
 							set(ref(db, `userWorkouts/${user.uid}/${uidkey}`), {
 								name: title,
 								icon: emoji,

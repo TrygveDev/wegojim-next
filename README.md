@@ -1,36 +1,33 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Wegojim
 
-## Getting Started
+Wegojim is a powerful Progressive Web App (PWA) designed to revolutionize your workout experience. With Wegojim, you can create, share, and edit workouts, as well as track your gym progress, all in one convenient platform.
 
-First, run the development server:
+## Key Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+- **Workout Creation**: Easily create personalized workouts tailored to your fitness goals. Add exercises, set reps and weights, and organize your routines with just a few clicks.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Workout Sharing**: Share your workouts with friends, trainers, or the fitness community. Inspire others and receive feedback on your training regimen.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Workout Editing**: Modify existing workouts as your fitness level evolves. Edit exercises, adjust intensity, and adapt routines to keep your workouts challenging and effective.
 
-[http://localhost:3000/api/hello](http://localhost:3000/api/hello) is an endpoint that uses [Route Handlers](https://beta.nextjs.org/docs/routing/route-handlers). This endpoint can be edited in `app/api/hello/route.ts`.
+- **Progress Tracking**: Monitor your gym progress over time. Record your sets, reps, and weights to visualize your improvements and identify areas for further growth.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- **Mobile-Friendly**: Wegojim is a PWA, which means it's installable on your phone and accessible offline. Enjoy the convenience of tracking your workouts wherever you go, even without an internet connection.
 
-## Learn More
+## Installation
 
-To learn more about Next.js, take a look at the following resources:
+To start using Wegojim, simply visit [wegojim.trygve.dev](https://wegojim.trygve.dev) on your mobile device. Follow the instructions to install it on your home screen and enjoy seamless access to your workout routines.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Technologies Used
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- **React**: Wegojim is built with React, a popular JavaScript library for building user interfaces. React's component-based architecture allows for efficient and reusable code, providing a smooth and responsive user experience.
 
-## Deploy on Vercel
+- **Next.js**: Wegojim utilizes Next.js, a powerful React framework that enhances development and provides server-side rendering, static site generation, and other optimizations out of the box.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Firebase**: Firebase is used as the backend for Wegojim, providing real-time data synchronization, user authentication, and secure data storage. It ensures a seamless and reliable experience for all users.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Get Involved
+
+Contributions to Wegojim are welcome! If you want to contribute new features, fix bugs, or improve the project, please fork the repository and submit a pull request. Additionally, feel free to open issues for any suggestions or bug reports.
+
+Let's make Wegojim even better together!

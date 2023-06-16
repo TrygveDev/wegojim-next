@@ -1,6 +1,5 @@
 "use client";
 
-import { CircularProgress } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { User, onAuthStateChanged } from "firebase/auth";
@@ -12,7 +11,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
 	faCircle,
 	faEllipsisV,
-	faHandDots,
 	faMagnifyingGlass,
 	faPlus,
 } from "@fortawesome/free-solid-svg-icons";
