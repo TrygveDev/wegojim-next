@@ -10,7 +10,7 @@ import {
 } from "firebase/auth";
 import { auth } from "../libs/firebase";
 import BackArrow from "../components/BackArrow";
-import { Avatar, CircularProgress } from "@mui/material";
+import { Avatar } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
 	faAngleRight,
@@ -35,12 +35,9 @@ export default function Settings() {
 
 	useEffect(() => {
 		onAuthStateChanged(auth, (user) => {
-			if (user) {
-				setUser(user);
-				setInitializing(false);
-			} else {
-				router.push("/");
-			}
+			if (!user) return router.push("/");
+			setUser(user);
+			setInitializing(false);
 		});
 	}, [router]);
 

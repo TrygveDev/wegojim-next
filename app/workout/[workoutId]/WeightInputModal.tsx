@@ -1,3 +1,4 @@
+import Workout from "@/app/interfaces/Workout";
 import { faDeleteLeft, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Modal } from "@mui/material";
@@ -10,18 +11,6 @@ type Props = {
 	active: string;
 	workout: Workout;
 	onSubmit: (weights: any) => void;
-};
-
-type Workout = {
-	name: string;
-	icon: string;
-	exercises: {
-		[key: string]: {
-			name: string;
-			sets: string | number;
-			reps: string | number;
-		};
-	};
 };
 
 const WeightInputModal = (props: Props) => {
@@ -104,11 +93,11 @@ const WeightInputModal = (props: Props) => {
 				<div
 					className="flex gap-2 items-center justify-start w-fit"
 					onClick={() => {
-						if (weights.length < 10) {
-							setWeights((value) => [...value, 0]);
-						} else {
-							toast.error("You can only track up to 10 sets!");
-						}
+						if (weights.length > 10)
+							return toast.error(
+								"You can only track up to 10 sets!"
+							);
+						setWeights((value) => [...value, 0]);
 					}}
 				>
 					<FontAwesomeIcon icon={faPlus} />

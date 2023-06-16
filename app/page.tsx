@@ -17,6 +17,7 @@ import {
 import Link from "next/link";
 import Loading from "./loading";
 import Cookies from "js-cookie";
+import Workout from "./interfaces/Workout";
 
 export default function Home() {
 	const router = useRouter();
@@ -26,50 +27,37 @@ export default function Home() {
 	const [editMode, setEditMode] = useState(false);
 	const [workingOut, setWorkingOut] = useState(null);
 
-	interface Workout {
-		name: string;
-		icon: string;
-		exercises: {
-			[key: string]: {
-				name: string;
-				sets: string | number;
-				reps: string | number;
-			};
-		};
-	}
-
 	useEffect(() => {
 		onAuthStateChanged(auth, (user) => {
-			if (user) {
-				if (!user.emailVerified) {
-					toast.error(
-						"Please verify your email address! Click the button in settings to send a verfication email."
-					);
-				}
-				setUser(user);
+			if (!user) return router.push("/auth");
 
-				get(ref(db, `userWorkouts/${user.uid}`))
-					.then((snapshot) => {
-						if (snapshot.exists()) {
-							setWorkouts(snapshot.val());
-						}
+			setUser(user);
 
-						if (Cookies.get("tempProgress")) {
-							// Get the tempProgress cookie, parse to JSON
-							let tempProgress = JSON.parse(
-								Cookies.get("tempProgress")
-							);
-							setWorkingOut(tempProgress.workoutId);
-						}
-						setInitializing(false);
-					})
-					.catch((error) => {
-						toast.error("Whoops! Something went wrong.");
-						console.error(error);
-					});
-			} else {
-				router.push("/auth");
+			if (!user.emailVerified) {
+				toast.error(
+					"Please verify your email address! Click the button in settings to send a verfication email."
+				);
 			}
+
+			get(ref(db, `userWorkouts/${user.uid}`))
+				.then((snapshot) => {
+					if (snapshot.exists()) {
+						setWorkouts(snapshot.val());
+					}
+
+					if (Cookies.get("tempProgress")) {
+						let tempProgress = JSON.parse(
+							Cookies.get("tempProgress")
+						);
+						setWorkingOut(tempProgress.workoutId);
+					}
+
+					setInitializing(false);
+				})
+				.catch((error) => {
+					toast.error("Whoops! Something went wrong.");
+					console.error(error);
+				});
 		});
 	}, [router]);
 
