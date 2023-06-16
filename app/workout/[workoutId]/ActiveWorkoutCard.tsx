@@ -15,7 +15,9 @@ const ActiveWorkoutCard = (props: Props) => {
 			className={
 				"w-full min-h-32 rounded-lg bg-[var(--primary-button)] flex flex-col"
 			}
-			onClick={() => {}}
+			onClick={() => {
+				props.setWeightSubmit(true);
+			}}
 		>
 			<div className="w-full flex flex-row items-center mt-1">
 				<div className="w-7/12">

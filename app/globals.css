@@ -8,6 +8,7 @@
 	--primary-button: #61dc5b;
 	--secondary-button: #232323;
 	--accent: #5b61dc;
+	--warning: #dc5b5b;
 	color: var(--primary);
 }
 body {

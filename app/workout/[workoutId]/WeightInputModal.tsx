@@ -1,6 +1,6 @@
 import { faDeleteLeft, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button, Modal } from "@mui/material";
+import { Modal } from "@mui/material";
 import React, { useState } from "react";
 import { toast } from "react-hot-toast";
 
@@ -9,6 +9,7 @@ type Props = {
 	setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 	active: string;
 	workout: Workout;
+	onSubmit: (weights: any) => void;
 };
 
 type Workout = {
@@ -23,29 +24,8 @@ type Workout = {
 	};
 };
 
-type Weight = {
-	weight: number;
-};
-
 const WeightInputModal = (props: Props) => {
-	const [weights, setWeights] = useState<Weight[]>([
-		{
-			weight: 0,
-		},
-	]);
-
-	const progress = useState({
-		workoutId: {
-			"Date.now": {
-				[props.active]: {
-					weight: [120, 130, 140],
-				},
-				[props.active]: {
-					weight: [120, 130, 140],
-				},
-			},
-		},
-	});
+	const [weights, setWeights] = useState<number[]>([0]);
 
 	return (
 		<Modal
@@ -81,9 +61,9 @@ const WeightInputModal = (props: Props) => {
 													className="text-lg text-center w-full bg-transparent focus:outline-none"
 													maxLength={4}
 													placeholder="0"
-													value={
-														weight.weight
-															? weight.weight
+													defaultValue={
+														weight[i]
+															? weight[i]
 															: ""
 													}
 													type="number"
@@ -91,7 +71,7 @@ const WeightInputModal = (props: Props) => {
 														const newList = [
 															...weights,
 														];
-														newList[i].weight =
+														newList[i] =
 															e.target.value;
 														setWeights(newList);
 													}}
@@ -125,7 +105,7 @@ const WeightInputModal = (props: Props) => {
 					className="flex gap-2 items-center justify-start w-fit"
 					onClick={() => {
 						if (weights.length < 10) {
-							setWeights((value) => [...value, { weight: null }]);
+							setWeights((value) => [...value, 0]);
 						} else {
 							toast.error("You can only track up to 10 sets!");
 						}
@@ -147,12 +127,8 @@ const WeightInputModal = (props: Props) => {
 					<button
 						className="bg-[var(--primary-button)] h-full text-lg w-full flex items-center justify-center rounded-br"
 						onClick={() => {
-							console.log(weights);
-							setWeights([
-								{
-									weight: null,
-								},
-							]);
+							props.onSubmit(weights);
+							setWeights([0]);
 							props.setOpen((value) => !value);
 						}}
 					>

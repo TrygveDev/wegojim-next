@@ -9,12 +9,14 @@ import { get, ref } from "firebase/database";
 import { toast } from "react-hot-toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+	faCircle,
 	faEllipsisV,
 	faMagnifyingGlass,
 	faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import Loading from "./loading";
+import Cookies from "js-cookie";
 
 export default function Home() {
 	const router = useRouter();
@@ -22,6 +24,7 @@ export default function Home() {
 	const [initializing, setInitializing] = useState(true);
 	const [workouts, setWorkouts] = useState<Workout>();
 	const [editMode, setEditMode] = useState(false);
+	const [workingOut, setWorkingOut] = useState(null);
 
 	interface Workout {
 		name: string;
@@ -49,6 +52,14 @@ export default function Home() {
 					.then((snapshot) => {
 						if (snapshot.exists()) {
 							setWorkouts(snapshot.val());
+						}
+
+						if (Cookies.get("tempProgress")) {
+							// Get the tempProgress cookie, parse to JSON
+							let tempProgress = JSON.parse(
+								Cookies.get("tempProgress")
+							);
+							setWorkingOut(tempProgress.workoutId);
 						}
 						setInitializing(false);
 					})
@@ -83,7 +94,14 @@ export default function Home() {
 				</div>
 				<div
 					className="flex items-center justify-center p-2"
-					onClick={() => setEditMode((value) => !value)}
+					onClick={() => {
+						if (workingOut)
+							return toast.error(
+								"Finish your active workout before editing your workouts!",
+								{ duration: 4000 }
+							);
+						setEditMode((value) => !value);
+					}}
 				>
 					<FontAwesomeIcon icon={faEllipsisV} size="xl" />
 				</div>
@@ -97,7 +115,14 @@ export default function Home() {
 						onClick={() => {
 							router.push(`/addworkout`);
 						}}
-						onContextMenu={() => setEditMode((value) => !value)}
+						onContextMenu={() => {
+							if (workingOut)
+								return toast.error(
+									"Finish your active workout before editing your workouts!",
+									{ duration: 4000 }
+								);
+							setEditMode((value) => !value);
+						}}
 					>
 						<FontAwesomeIcon icon={faPlus} size="2x" />
 					</div>
@@ -107,8 +132,18 @@ export default function Home() {
 						<Link
 							key={i}
 							className="w-[calc(50%-0.375rem)] h-[calc(50vw-2.125rem)]"
+							onClick={() => {
+								if (workingOut !== workout[0] && workingOut) {
+									toast.error(
+										"Finish your active workout before starting a new one!",
+										{ duration: 4000 }
+									);
+								}
+							}}
 							href={
-								editMode
+								workingOut !== workout[0] && workingOut
+									? `/`
+									: editMode
 									? `/editworkout/${workout[0]}`
 									: `/workout/${workout[0]}`
 							}
@@ -120,9 +155,25 @@ export default function Home() {
 							`}
 								onContextMenu={(e) => {
 									e.preventDefault();
+									if (workingOut)
+										return toast.error(
+											"Finish your active workout before editing your workouts!",
+											{ duration: 4000 }
+										);
+
 									setEditMode((value) => !value);
 								}}
 							>
+								{workingOut === workout[0] && (
+									<div className="flex items-center gap-1 h-4 w-full pl-2">
+										<FontAwesomeIcon
+											icon={faCircle}
+											size="xs"
+											color="var(--primary-button)"
+										/>
+										<p className="text-xs">Active</p>
+									</div>
+								)}
 								<p className="text-5xl">{workout[1].icon}</p>
 								<h1 className="text-lg text-center">
 									{workout[1].name}
