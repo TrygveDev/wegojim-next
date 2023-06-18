@@ -2,6 +2,7 @@
 
 import BackArrow from "@/app/components/BackArrow";
 import ConfirmModal from "@/app/components/ConfirmModal";
+import Exercise from "@/app/interfaces/Exercise";
 import { auth, db } from "@/app/libs/firebase";
 import Loading from "@/app/loading";
 import {
@@ -11,20 +12,12 @@ import {
 	faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button, CircularProgress } from "@mui/material";
 import EmojiPicker from "emoji-picker-react";
 import { User, onAuthStateChanged } from "firebase/auth";
 import { get, ref, set } from "firebase/database";
-import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-
-type Exercise = {
-	name: string;
-	sets: string | number;
-	reps: string | number;
-};
 
 export default function Workout({ params }: any) {
 	const router = useRouter();
@@ -40,28 +33,23 @@ export default function Workout({ params }: any) {
 
 	useEffect(() => {
 		onAuthStateChanged(auth, (user) => {
-			if (user) {
-				setUser(user);
-				get(ref(db, `userWorkouts/${user.uid}/${params.workoutId}`))
-					.then((snapshot) => {
-						if (snapshot.exists()) {
-							setExercises(snapshot.val().exercises);
-							setTitle(snapshot.val().name);
-							setEmoji(snapshot.val().icon);
-							setInitializing(false);
-						} else {
-							toast.error("Whoops! Something went wrong.");
-							setInitializing(false);
-						}
-					})
-					.catch((error) => {
-						toast.error("Whoops! Something went wrong.");
-						console.error(error);
-					})
-					.finally(() => setLoading(false));
-			} else {
-				router.push("/");
-			}
+			if (!user) return router.push("/");
+			setUser(user);
+			get(ref(db, `userWorkouts/${user.uid}/${params.workoutId}`))
+				.then((snapshot) => {
+					if (!snapshot.exists())
+						return toast.error("Whoops! Something went wrong.");
+
+					setExercises(snapshot.val().exercises);
+					setTitle(snapshot.val().name);
+					setEmoji(snapshot.val().icon);
+					setInitializing(false);
+				})
+				.catch((error) => {
+					toast.error("Whoops! Something went wrong.");
+					console.error(error);
+				})
+				.finally(() => setLoading(false));
 		});
 	}, [params.workoutId, router]);
 

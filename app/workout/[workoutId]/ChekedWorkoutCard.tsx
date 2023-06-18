@@ -1,12 +1,10 @@
+import Exercise from "@/app/interfaces/Exercise";
 import React from "react";
 
 type Props = {
 	setUncheckModalOpen: (arg0: boolean) => void;
 	setActive: (exercise: string) => void;
-	exercise: [
-		string,
-		{ name: string; sets: string | number; reps: string | number }
-	];
+	exercise: [string, Exercise];
 };
 
 const CheckedWorkoutCard = (props: Props) => {

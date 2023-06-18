@@ -1,8 +1,4 @@
-import {
-	faAppStoreIos,
-	faApple,
-	faGooglePlay,
-} from "@fortawesome/free-brands-svg-icons";
+import { faApple, faGooglePlay } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { toast } from "react-hot-toast";

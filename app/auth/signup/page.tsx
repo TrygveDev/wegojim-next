@@ -26,11 +26,8 @@ export default function Signup() {
 
 	useEffect(() => {
 		onAuthStateChanged(auth, (user) => {
-			if (user) {
-				router.push("/");
-			} else {
-				setLoading(false);
-			}
+			if (!user) return setLoading(false);
+			router.push("/");
 		});
 	}, [router]);
 

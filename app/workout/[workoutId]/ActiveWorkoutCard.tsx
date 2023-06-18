@@ -1,11 +1,8 @@
+import Exercise from "@/app/interfaces/Exercise";
 import React from "react";
-import { toast } from "react-hot-toast";
 
 type Props = {
-	exercise: [
-		string,
-		{ name: string; sets: string | number; reps: string | number }
-	];
+	exercise: [string, Exercise];
 	setWeightSubmit: (weightSubmit: boolean) => void;
 };
 

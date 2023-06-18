@@ -1,11 +1,9 @@
 import React from "react";
+import Exercise from "../interfaces/Exercise";
 
 type Props = {
 	setActive: (exercise: string) => void;
-	exercise: [
-		string,
-		{ name: string; sets: string | number; reps: string | number }
-	];
+	exercise: [string, Exercise];
 };
 
 const WorkoutCard = (props: Props) => {

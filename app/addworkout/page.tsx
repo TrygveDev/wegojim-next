@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, CircularProgress } from "@mui/material";
+import { Button } from "@mui/material";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { User, onAuthStateChanged } from "firebase/auth";
@@ -17,12 +17,7 @@ import { child, get, push, ref, set } from "firebase/database";
 import { toast } from "react-hot-toast";
 import InputModal from "../components/InputModal";
 import Loading from "../loading";
-
-type Exercise = {
-	name: string;
-	sets: string | number;
-	reps: string | number;
-};
+import Exercise from "../interfaces/Exercise";
 
 export default function Home() {
 	const router = useRouter();
@@ -43,12 +38,9 @@ export default function Home() {
 
 	useEffect(() => {
 		onAuthStateChanged(auth, (user) => {
-			if (user) {
-				setUser(user);
-				setInitializing(false);
-			} else {
-				router.push("/");
-			}
+			if (!user) return router.push("/");
+			setUser(user);
+			setInitializing(false);
 		});
 	}, [router]);
 
@@ -147,7 +139,9 @@ export default function Home() {
 								);
 							}
 
-							const uidkey = push(child(ref(db), `userWorkouts/${user.uid}/`)).key;
+							const uidkey = push(
+								child(ref(db), `userWorkouts/${user.uid}/`)
+							).key;
 							set(ref(db, `userWorkouts/${user.uid}/${uidkey}`), {
 								name: title,
 								icon: emoji,

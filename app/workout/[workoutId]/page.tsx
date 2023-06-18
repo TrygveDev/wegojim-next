@@ -14,18 +14,7 @@ import WeightInputModal from "@/app/workout/[workoutId]/WeightInputModal";
 import Cookies from "js-cookie";
 import CheckedWorkoutCard from "./ChekedWorkoutCard";
 import ConfirmModal from "@/app/components/ConfirmModal";
-
-interface Workout {
-	name: string;
-	icon: string;
-	exercises: {
-		[key: string]: {
-			name: string;
-			sets: string | number;
-			reps: string | number;
-		};
-	};
-}
+import Workout from "@/app/interfaces/Workout";
 
 export default function Workout({ params }: any) {
 	const router = useRouter();
@@ -43,50 +32,44 @@ export default function Workout({ params }: any) {
 
 	useEffect(() => {
 		onAuthStateChanged(auth, (user) => {
-			if (user) {
-				setUser(user);
-				get(ref(db, `userWorkouts/${user.uid}/${params.workoutId}`))
-					.then((snapshot) => {
-						if (snapshot.exists()) {
-							setWorkout(snapshot.val());
-							setActive(Object.keys(snapshot.val().exercises)[0]);
+			if (!user) return router.push("/");
+			setUser(user);
+			get(ref(db, `userWorkouts/${user.uid}/${params.workoutId}`))
+				.then((snapshot) => {
+					if (!snapshot.exists())
+						return toast.error("Whoops! Something went wrong.");
 
-							// If there is no tempProgress cookie, return
-							if (!Cookies.get("tempProgress")) {
-								setProgress(null);
-							} else {
-								// Get the tempProgress cookie, parse to JSON
-								let tempProgress = JSON.parse(
-									Cookies.get("tempProgress")
-								);
+					setWorkout(snapshot.val());
+					setActive(Object.keys(snapshot.val().exercises)[0]);
 
-								if (
-									tempProgress.workoutId === params.workoutId
-								) {
-									setProgress(tempProgress);
-									Object.entries(
-										tempProgress.progress
-									).forEach((item: any) => {
-										// Check the exercise visually
-										let checkedList = checked;
-										checkedList.push(parseInt(item[0]));
-										setChecked(checkedList);
-									});
+					// If there is no tempProgress cookie, return
+					if (!Cookies.get("tempProgress")) {
+						setProgress(null);
+					} else {
+						// Get the tempProgress cookie, parse to JSON
+						let tempProgress = JSON.parse(
+							Cookies.get("tempProgress")
+						);
+
+						if (tempProgress.workoutId === params.workoutId) {
+							setProgress(tempProgress);
+							Object.entries(tempProgress.progress).forEach(
+								(item: any) => {
+									// Check the exercise visually
+									let checkedList = checked;
+									checkedList.push(parseInt(item[0]));
+									setChecked(checkedList);
 								}
-							}
-
-							setInitializing(false);
-						} else {
-							toast.error("Whoops! Something went wrong.");
+							);
 						}
-					})
-					.catch((error) => {
-						toast.error("Whoops! Something went wrong.");
-						console.error(error);
-					});
-			} else {
-				router.push("/");
-			}
+					}
+
+					setInitializing(false);
+				})
+				.catch((error) => {
+					toast.error("Whoops! Something went wrong.");
+					console.error(error);
+				});
 		});
 	}, [params.workoutId, router, checked]);
 
