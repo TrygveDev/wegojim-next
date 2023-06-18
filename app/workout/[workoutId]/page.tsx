@@ -130,6 +130,7 @@ export default function Workout({ params }: any) {
 			/>
 			<ConfirmModal
 				onConfirm={() => {
+					setInitializing(true);
 					setCompleteModalOpen(false);
 					// set endDate to current
 					let saveProgress = progress;
@@ -145,37 +146,11 @@ export default function Workout({ params }: any) {
 							`userProgress/${user.uid}/${params.workoutId}/progress/${progress.startDate}`
 						),
 						saveProgress
-					);
+					).then(() => {
+						toast.success("Workout completed, well done!");
+					});
+
 					// delete cookie
-
-					Cookies.remove("tempProgress");
-					router.push("/");
-				}}
-				open={completeModalOpen}
-				setOpen={setCompleteModalOpen}
-				prompt="Complete the workout?"
-				subPrompt="This will save your progress, weights and time used."
-			/>
-			<ConfirmModal
-				onConfirm={() => {
-					setCompleteModalOpen(false);
-					// set endDate to current
-					let saveProgress = progress;
-					saveProgress.endDate = Date.now();
-
-					// remove unnecessary data
-					delete saveProgress.workoutId;
-
-					// save progress to db
-					set(
-						ref(
-							db,
-							`userProgress/${user.uid}/${params.workoutId}/progress/${progress.startDate}`
-						),
-						saveProgress
-					);
-					// delete cookie
-
 					Cookies.remove("tempProgress");
 					router.push("/");
 				}}
