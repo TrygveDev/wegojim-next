@@ -38,20 +38,20 @@ const Navbar = (props: Props) => {
 				</Link>
 			</div>
 			<div className="h-14 w-full pointer-events-auto rounded-2xl bg-[var(--primary-button)] flex flex-row justify-evenly items-center">
-				<FontAwesomeIcon
-					icon={faChartSimple}
-					size="xl"
-					color={path === "/stats" ? "" : "var(--secondary)"}
-					onClick={() =>
-						toast.error("This feature is not available yet!")
-					}
-				/>
-				<FontAwesomeIcon
-					icon={faHome}
-					size="xl"
-					color={path === "/" ? "" : "var(--secondary)"}
-					onClick={() => router.push("/")}
-				/>
+				<Link href="/progress">
+					<FontAwesomeIcon
+						icon={faChartSimple}
+						size="xl"
+						color={path === "/progress" ? "" : "var(--secondary)"}
+					/>
+				</Link>
+				<Link href="/">
+					<FontAwesomeIcon
+						icon={faHome}
+						size="xl"
+						color={path === "/" ? "" : "var(--secondary)"}
+					/>
+				</Link>
 				<FontAwesomeIcon
 					icon={faUsers}
 					size="xl"

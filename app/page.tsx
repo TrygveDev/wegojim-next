@@ -35,7 +35,7 @@ export default function Home() {
 
 			if (!user.emailVerified) {
 				toast.error(
-					"Please verify your email address! Click the button in settings to send a verfication email."
+					"Please verify your email address! Send a verfication email from the settings."
 				);
 			}
 
